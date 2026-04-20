@@ -5,37 +5,77 @@
 @implements IDisposable
 
 <div class="editor-layout">
-    <div class="editor-canvas" @onclick="() => State.SelectItem(null)">
-        <div class="kanvas" @onclick:stopPropagation>
-            @foreach (var item in State.Items)
+    <div class="editor-main"
+         @onmousemove="OnMouseMove"
+         @onmouseup="OnMouseUp"
+         @onmouseleave="OnMouseUp">
+
+        <div class="editor-toolbar">
+            <span class="toolbar-label">Tambah Elemen</span>
+            <button class="toolbar-btn" @onclick="AddText">
+                <span class="toolbar-btn-icon">T</span> Text
+            </button>
+            <button class="toolbar-btn" @onclick="ToggleAddImage">
+                <span class="toolbar-btn-icon">⬜</span> Image
+            </button>
+            @if (_showAddImage)
             {
-                if (item is ImageItem img)
-                {
-                    <div class="kanvas-item @(State.SelectedItem?.Id == img.Id ? "selected" : "")"
-                         @onclick="() => State.SelectItem(img)"
-                         @onclick:stopPropagation>
-                        <div class="kanvas-image-wrapper">
-                            <img class="kanvas-image" src="@img.Src" alt="@img.Alt" />
-                        </div>
-                    </div>
-                }
-                else if (item is TextItem text)
-                {
-                    <div class="kanvas-item @(State.SelectedItem?.Id == text.Id ? "selected" : "")"
-                         style="text-align: @text.Align;"
-                         @onclick="() => State.SelectItem(text)"
-                         @onclick:stopPropagation>
-                        @if (text.Type == CanvasItemType.Title)
-                        {
-                            <h1 class="kanvas-title" style="@TextStyle(text)">@text.Text</h1>
-                        }
-                        else
-                        {
-                            <p class="kanvas-subtitle" style="@TextStyle(text)">@text.Text</p>
-                        }
-                    </div>
-                }
+                <div class="toolbar-image-form">
+                    <input class="toolbar-image-input" type="text" placeholder="Masukkan URL gambar..."
+                           @bind="_newImageUrl" @bind:event="oninput"
+                           @onkeydown="OnImageInputKeyDown" />
+                    <button class="toolbar-btn toolbar-btn-primary" @onclick="AddImage">Tambah</button>
+                    <button class="toolbar-btn" @onclick="() => _showAddImage = false">Batal</button>
+                </div>
             }
+        </div>
+
+        <div class="editor-canvas" @onclick="OnCanvasClick">
+            @if (!State.Items.Any())
+            {
+                <div class="canvas-empty">
+                    <div class="canvas-empty-icon">✦</div>
+                    <p>Kanvas kosong. Tambah elemen dari toolbar di atas.</p>
+                </div>
+            }
+            <div class="kanvas" @onclick:stopPropagation>
+                @foreach (var item in State.Items)
+                {
+                    if (item is ImageItem img)
+                    {
+                        <div class="kanvas-item @Selected(img)"
+                             style="left: @(img.X)px; top: @(img.Y)px; width: @(img.Width)px;"
+                             @onmousedown="e => OnItemMouseDown(e, img)"
+                             @onclick:stopPropagation>
+                            <img src="@img.Src" alt="@img.Alt" style="width: 100%; display: block; pointer-events: none;" />
+                        </div>
+                    }
+                    else if (item is TextItem text)
+                    {
+                        <div class="kanvas-item kanvas-item-text @Selected(text) @(_editingItemId == text.Id ? "editing" : "")"
+                             style="left: @(text.X)px; top: @(text.Y)px;"
+                             @onmousedown="e => OnItemMouseDown(e, text)"
+                             @ondblclick="() => StartEdit(text)"
+                             @ondblclick:stopPropagation
+                             @onclick:stopPropagation>
+                            @if (_editingItemId == text.Id)
+                            {
+                                <textarea class="text-edit-input" style="@TextStyle(text)"
+                                          value="@text.Text"
+                                          @oninput="e => { text.Text = e.Value?.ToString() ?? text.Text; State.NotifyChange(); }"
+                                          @onblur="StopEdit"
+                                          @onkeydown="OnEditKeyDown"
+                                          @onmousedown:stopPropagation
+                                          @ref="_editRef"></textarea>
+                            }
+                            else
+                            {
+                                <span style="@TextStyle(text)">@text.Text</span>
+                            }
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 
@@ -43,13 +83,132 @@
 </div>
 
 @code {
+    private const float CanvasWidth = 640;
+    private const float CanvasHeight = 480;
+
+    private bool _showAddImage;
+    private string _newImageUrl = string.Empty;
+
+    private CanvasItem? _dragging;
+    private double _lastMouseX, _lastMouseY;
+    private bool _isDragging;
+
+    private Guid? _editingItemId;
+    private ElementReference _editRef;
+    private bool _shouldFocusEdit;
+
     protected override void OnInitialized() => State.OnChange += OnStateChanged;
 
     private void OnStateChanged() => InvokeAsync(StateHasChanged);
 
+    private string Selected(CanvasItem item) =>
+        State.SelectedItem?.Id == item.Id ? "selected" : "";
+
+    // ── Toolbar ──
+
+    private void AddText()
+    {
+        var offset = State.Items.Count * 20 % 120;
+        State.AddItem(new TextItem { X = 40 + offset, Y = 40 + offset });
+    }
+
+    private void ToggleAddImage()
+    {
+        _showAddImage = !_showAddImage;
+        _newImageUrl = string.Empty;
+    }
+
+    private void AddImage()
+    {
+        if (string.IsNullOrWhiteSpace(_newImageUrl)) return;
+        var offset = State.Items.Count * 20 % 80;
+        State.AddItem(new ImageItem { Src = _newImageUrl.Trim(), X = 40 + offset, Y = 40 + offset });
+        _newImageUrl = string.Empty;
+        _showAddImage = false;
+    }
+
+    private void OnImageInputKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") AddImage();
+        if (e.Key == "Escape") _showAddImage = false;
+    }
+
+    // ── Canvas click (deselect) ──
+
+    private void OnCanvasClick()
+    {
+        _editingItemId = null;
+        State.SelectItem(null);
+    }
+
+    // ── Drag ──
+
+    private void OnItemMouseDown(MouseEventArgs e, CanvasItem item)
+    {
+        if (_editingItemId == item.Id) return;
+        State.SelectItem(item);
+        _dragging = item;
+        _lastMouseX = e.ClientX;
+        _lastMouseY = e.ClientY;
+        _isDragging = false;
+    }
+
+    private void OnMouseMove(MouseEventArgs e)
+    {
+        if (_dragging is null) return;
+        var dx = e.ClientX - _lastMouseX;
+        var dy = e.ClientY - _lastMouseY;
+        if (!_isDragging && (Math.Abs(dx) > 3 || Math.Abs(dy) > 3))
+            _isDragging = true;
+        if (_isDragging)
+        {
+            _dragging.X = Math.Clamp((float)(_dragging.X + dx), 0, CanvasWidth - 20);
+            _dragging.Y = Math.Clamp((float)(_dragging.Y + dy), 0, CanvasHeight - 20);
+            _lastMouseX = e.ClientX;
+            _lastMouseY = e.ClientY;
+            StateHasChanged();
+        }
+    }
+
+    private void OnMouseUp(MouseEventArgs e)
+    {
+        _dragging = null;
+        _isDragging = false;
+    }
+
+    // ── Inline edit ──
+
+    private void StartEdit(TextItem text)
+    {
+        _editingItemId = text.Id;
+        _shouldFocusEdit = true;
+    }
+
+    private void StopEdit()
+    {
+        _editingItemId = null;
+        State.NotifyChange();
+    }
+
+    private void OnEditKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") StopEdit();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_shouldFocusEdit)
+        {
+            _shouldFocusEdit = false;
+            try { await _editRef.FocusAsync(); } catch { }
+        }
+    }
+
+    // ── Style ──
+
     private static string TextStyle(TextItem t)
     {
-        var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color};";
+        var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color}; text-align: {t.Align};";
         if (t.StrokeWidth > 0)
             style += $" -webkit-text-stroke: {t.StrokeWidth}px {t.StrokeColor};";
         return style;

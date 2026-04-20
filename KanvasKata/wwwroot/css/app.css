@@ -25,75 +25,197 @@ h1:focus {
     overflow: hidden;
 }
 
+.editor-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Toolbar ── */
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: #fff;
+    border-bottom: 1px solid #e2e2e2;
+    flex-wrap: wrap;
+}
+
+.toolbar-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 0.25rem;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+    background: #f5f3ff;
+}
+
+.toolbar-btn-primary {
+    background: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+
+.toolbar-btn-primary:hover {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: #fff;
+}
+
+.toolbar-btn-icon {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    line-height: 1;
+    width: 1.125rem;
+    text-align: center;
+}
+
+.toolbar-image-form {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex: 1;
+}
+
+.toolbar-image-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.375rem 0.625rem;
+    border: 1px solid #6366f1;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* ── Canvas Area ── */
+
 .editor-canvas {
     flex: 1;
-    overflow-y: auto;
+    overflow: auto;
     background: #dcdcd4;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     padding: 3rem 2rem;
+    position: relative;
+}
+
+/* ── Empty State ── */
+
+.canvas-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: #999;
+    font-size: 0.9375rem;
+    text-align: center;
+    pointer-events: none;
+}
+
+.canvas-empty-icon {
+    font-size: 2.5rem;
+    opacity: 0.4;
 }
 
 /* ── Canvas Card ── */
 
 .kanvas {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    max-width: 640px;
+    position: relative;
+    width: 640px;
+    height: 480px;
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
-    gap: 0;
+    flex-shrink: 0;
 }
 
 .kanvas-item {
-    cursor: pointer;
-    position: relative;
-    transition: outline 0.1s;
+    position: absolute;
+    cursor: grab;
+    user-select: none;
     outline: 2px solid transparent;
-    outline-offset: -2px;
+    outline-offset: 2px;
+    border-radius: 2px;
+    transition: outline-color 0.1s;
 }
 
 .kanvas-item:hover {
-    outline-color: rgba(99, 102, 241, 0.35);
+    outline-color: rgba(99, 102, 241, 0.4);
 }
 
 .kanvas-item.selected {
     outline-color: #6366f1;
 }
 
-.kanvas-image-wrapper {
-    width: 100%;
-    line-height: 0;
+.kanvas-item.editing {
+    cursor: text;
+    outline-color: #6366f1;
 }
 
-.kanvas-image {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.kanvas-content-item {
-    padding: 1.5rem 2rem;
+.kanvas-item-text {
+    width: max-content;
+    max-width: 560px;
+    line-height: 1.3;
 }
 
 .kanvas-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    letter-spacing: -0.5px;
-    padding: 1.25rem 2rem 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .kanvas-subtitle {
-    font-size: 1.125rem;
-    color: #555;
-    line-height: 1.6;
-    padding: 0.5rem 2rem 1.5rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.text-edit-input {
+    display: block;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 0;
+    margin: 0;
+    width: max-content;
+    min-width: 80px;
+    max-width: 540px;
+    line-height: inherit;
+    field-sizing: content;
+    font: inherit;
+    color: inherit;
+    -webkit-text-stroke: inherit;
 }
 
 /* ── Properties Sidebar ── */
@@ -137,6 +259,12 @@ h1:focus {
     gap: 1rem;
 }
 
+.sidebar-item-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .sidebar-item-label {
     font-size: 0.6875rem;
     font-weight: 700;
@@ -147,6 +275,23 @@ h1:focus {
     padding: 0.25rem 0.625rem;
     border-radius: 4px;
     display: inline-block;
+}
+
+.sidebar-delete-btn {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #ef4444;
+    background: none;
+    border: 1px solid #fca5a5;
+    border-radius: 5px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.sidebar-delete-btn:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
 }
 
 /* ── Property Controls ── */

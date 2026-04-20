@@ -17,8 +17,16 @@
     else if (State.SelectedItem is TextItem textItem)
     {
         <div class="sidebar-section">
-            <div class="sidebar-item-label">
-                @(textItem.Type == CanvasItemType.Title ? "Title" : "Subtitle")
+            <div class="sidebar-item-label-row">
+                <div class="sidebar-item-label">Text</div>
+                <button class="sidebar-delete-btn" @onclick="DeleteSelected">Hapus</button>
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Konten</label>
+                <textarea class="prop-textarea" rows="3"
+                          value="@textItem.Text"
+                          @oninput="e => { textItem.Text = e.Value?.ToString() ?? textItem.Text; State.NotifyChange(); }"></textarea>
             </div>
 
             <div class="prop-group">
@@ -80,13 +88,22 @@
     else if (State.SelectedItem is ImageItem imageItem)
     {
         <div class="sidebar-section">
-            <div class="sidebar-item-label">Image</div>
+            <div class="sidebar-item-label-row">
+                <div class="sidebar-item-label">Image</div>
+                <button class="sidebar-delete-btn" @onclick="DeleteSelected">Hapus</button>
+            </div>
 
             <div class="prop-group">
                 <label class="prop-label">Image URL</label>
                 <textarea class="prop-textarea" rows="3"
                           @bind="_imageUrl" @bind:event="oninput"></textarea>
                 <button class="prop-apply-btn" @onclick="ApplyImageUrl">Apply</button>
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Width <span class="prop-value-badge">@imageItem.Width px</span></label>
+                <input type="range" class="prop-range" min="40" max="620" value="@imageItem.Width"
+                       @oninput="e => { imageItem.Width = int.TryParse(e.Value?.ToString(), out var v) ? v : imageItem.Width; State.NotifyChange(); }" />
             </div>
 
             @if (!string.IsNullOrWhiteSpace(imageItem.Src))
@@ -143,6 +160,12 @@
             img.Src = _imageUrl.Trim();
             State.NotifyChange();
         }
+    }
+
+    private void DeleteSelected()
+    {
+        if (State.SelectedItem is not null)
+            State.RemoveItem(State.SelectedItem);
     }
 
     public void Dispose() => State.OnChange -= OnStateChanged;
