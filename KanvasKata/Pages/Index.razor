@@ -47,12 +47,6 @@
                              style="left: @(img.X)px; top: @(img.Y)px; width: @(img.Width)px;"
                              @onmousedown="e => OnItemMouseDown(e, img)"
                              @onclick:stopPropagation>
-                            @if (State.SelectedItem?.Id == img.Id)
-                            {
-                                <div class="item-layer-bar" @onmousedown:stopPropagation @onclick:stopPropagation>
-                                    @LayerBarContent(img)
-                                </div>
-                            }
                             <img src="@img.Src" alt="@img.Alt" style="width: 100%; display: block; pointer-events: none;" />
                         </div>
                     }
@@ -64,12 +58,6 @@
                              @ondblclick="() => StartEdit(text)"
                              @ondblclick:stopPropagation
                              @onclick:stopPropagation>
-                            @if (State.SelectedItem?.Id == text.Id && _editingItemId != text.Id)
-                            {
-                                <div class="item-layer-bar" @onmousedown:stopPropagation @onclick:stopPropagation>
-                                    @LayerBarContent(text)
-                                </div>
-                            }
                             @if (_editingItemId == text.Id)
                             {
                                 <textarea class="text-edit-input" style="@TextStyle(text)"
@@ -86,6 +74,18 @@
                             }
                         </div>
                     }
+                }
+
+                @if (State.SelectedItem is not null && _editingItemId is null)
+                {
+                    var sel = State.SelectedItem;
+                    var barY = (int)Math.Max(4, sel.Y - 34);
+                    <div class="item-layer-bar"
+                         style="left: @((int)sel.X)px; top: @(barY)px;"
+                         @onmousedown:stopPropagation
+                         @onclick:stopPropagation>
+                        @LayerBarContent(sel)
+                    </div>
                 }
             </div>
         </div>
