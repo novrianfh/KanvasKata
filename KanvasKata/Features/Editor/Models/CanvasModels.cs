@@ -23,4 +23,5 @@ public class ImageItem : CanvasItem
     public string Src { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;
     public int Width { get; set; } = 240;
+    public int Height { get; set; } = 0; // 0 = auto
 }

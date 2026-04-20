@@ -57,11 +57,22 @@
                 {
                     if (item is ImageItem img)
                     {
-                        <div class="kanvas-item @Selected(img)"
-                             style="left: @(img.X)px; top: @(img.Y)px; width: @(img.Width)px;"
+                        var isSelected = State.SelectedItem?.Id == img.Id;
+                        <div class="kanvas-item @(isSelected ? "selected" : "")"
+                             style="@ImgWrapperStyle(img)"
                              @onmousedown="e => OnItemMouseDown(e, img)"
                              @onclick:stopPropagation>
-                            <img src="@img.Src" alt="@img.Alt" style="width: 100%; display: block; pointer-events: none;" />
+                            <img src="@img.Src" alt="@img.Alt" style="@ImgStyle(img)" />
+                            @if (isSelected)
+                            {
+                                @foreach (var handle in ResizeHandles)
+                                {
+                                    var h = handle;
+                                    <div class="resize-handle resize-handle-@h"
+                                         @onmousedown="e => OnResizeMouseDown(e, img, h)"
+                                         @onmousedown:stopPropagation></div>
+                                }
+                            }
                         </div>
                     }
                     else if (item is TextItem text)
@@ -109,12 +120,19 @@
 </div>
 
 @code {
+    private static readonly string[] ResizeHandles = ["nw", "n", "ne", "w", "e", "sw", "s", "se"];
+
     private bool _showAddImage;
     private string _newImageUrl = string.Empty;
 
+    // Move drag
     private CanvasItem? _dragging;
     private double _lastMouseX, _lastMouseY;
     private bool _isDragging;
+
+    // Resize drag
+    private ImageItem? _resizingImg;
+    private string? _resizeHandle;
 
     private Guid? _editingItemId;
     private ElementReference _editRef;
@@ -172,7 +190,7 @@
         if (e.Key == "Escape") _showAddImage = false;
     }
 
-    // ── Canvas click (deselect) ──
+    // ── Canvas click ──
 
     private void OnCanvasClick()
     {
@@ -180,7 +198,7 @@
         State.SelectItem(null);
     }
 
-    // ── Drag ──
+    // ── Move drag ──
 
     private void OnItemMouseDown(MouseEventArgs e, CanvasItem item)
     {
@@ -192,11 +210,39 @@
         _isDragging = false;
     }
 
+    // ── Resize drag ──
+
+    private void OnResizeMouseDown(MouseEventArgs e, ImageItem img, string handle)
+    {
+        // Init height when dragging a handle that affects height
+        if (img.Height == 0 && handle is not ("e" or "w"))
+            img.Height = (int)(img.Width * 0.75f);
+
+        _resizingImg = img;
+        _resizeHandle = handle;
+        _dragging = null;
+        _lastMouseX = e.ClientX;
+        _lastMouseY = e.ClientY;
+        _isDragging = true;
+    }
+
+    // ── Mouse move (shared) ──
+
     private void OnMouseMove(MouseEventArgs e)
     {
-        if (_dragging is null) return;
         var dx = e.ClientX - _lastMouseX;
         var dy = e.ClientY - _lastMouseY;
+
+        if (_resizingImg is not null && _resizeHandle is not null)
+        {
+            ApplyResize(_resizingImg, _resizeHandle, dx, dy);
+            _lastMouseX = e.ClientX;
+            _lastMouseY = e.ClientY;
+            StateHasChanged();
+            return;
+        }
+
+        if (_dragging is null) return;
         if (!_isDragging && (Math.Abs(dx) > 3 || Math.Abs(dy) > 3))
             _isDragging = true;
         if (_isDragging)
@@ -209,10 +255,54 @@
         }
     }
 
+    private void ApplyResize(ImageItem img, string handle, double dx, double dy)
+    {
+        switch (handle)
+        {
+            case "e":
+                img.Width = Math.Max(20, (int)(img.Width + dx));
+                break;
+            case "w":
+                var wW = (int)(img.Width - dx);
+                if (wW >= 20) { img.Width = wW; img.X += (float)dx; }
+                break;
+            case "s":
+                img.Height = Math.Max(20, (int)(img.Height + dy));
+                break;
+            case "n":
+                var nH = (int)(img.Height - dy);
+                if (nH >= 20) { img.Height = nH; img.Y += (float)dy; }
+                break;
+            case "se":
+                img.Width = Math.Max(20, (int)(img.Width + dx));
+                img.Height = Math.Max(20, (int)(img.Height + dy));
+                break;
+            case "sw":
+                var swW = (int)(img.Width - dx);
+                if (swW >= 20) { img.Width = swW; img.X += (float)dx; }
+                img.Height = Math.Max(20, (int)(img.Height + dy));
+                break;
+            case "ne":
+                img.Width = Math.Max(20, (int)(img.Width + dx));
+                var neH = (int)(img.Height - dy);
+                if (neH >= 20) { img.Height = neH; img.Y += (float)dy; }
+                break;
+            case "nw":
+                var nwW = (int)(img.Width - dx);
+                if (nwW >= 20) { img.Width = nwW; img.X += (float)dx; }
+                var nwH = (int)(img.Height - dy);
+                if (nwH >= 20) { img.Height = nwH; img.Y += (float)dy; }
+                break;
+        }
+    }
+
     private void OnMouseUp(MouseEventArgs e)
     {
+        if (_resizingImg is not null) State.NotifyChange();
         _dragging = null;
         _isDragging = false;
+        _resizingImg = null;
+        _resizeHandle = null;
     }
 
     // ── Inline edit ──
@@ -243,7 +333,19 @@
         }
     }
 
-    // ── Style ──
+    // ── Style helpers ──
+
+    private static string ImgWrapperStyle(ImageItem img)
+    {
+        var s = $"left: {img.X}px; top: {img.Y}px; width: {img.Width}px;";
+        if (img.Height > 0) s += $" height: {img.Height}px;";
+        return s;
+    }
+
+    private static string ImgStyle(ImageItem img) =>
+        img.Height > 0
+            ? "width: 100%; height: 100%; object-fit: fill; display: block; pointer-events: none;"
+            : "width: 100%; height: auto; display: block; pointer-events: none;";
 
     private static string TextStyle(TextItem t)
     {

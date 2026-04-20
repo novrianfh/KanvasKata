@@ -101,9 +101,22 @@
             </div>
 
             <div class="prop-group">
-                <label class="prop-label">Width <span class="prop-value-badge">@imageItem.Width px</span></label>
-                <input type="range" class="prop-range" min="40" max="620" value="@imageItem.Width"
-                       @oninput="e => { imageItem.Width = int.TryParse(e.Value?.ToString(), out var v) ? v : imageItem.Width; State.NotifyChange(); }" />
+                <label class="prop-label">Ukuran</label>
+                <div class="prop-size-row">
+                    <div class="prop-size-field">
+                        <span class="prop-size-label">W</span>
+                        <input type="number" class="prop-size-input" min="20" value="@imageItem.Width"
+                               @onchange="e => { imageItem.Width = int.TryParse(e.Value?.ToString(), out var v) ? Math.Max(20, v) : imageItem.Width; State.NotifyChange(); }" />
+                    </div>
+                    <span class="prop-size-sep">×</span>
+                    <div class="prop-size-field">
+                        <span class="prop-size-label">H</span>
+                        <input type="number" class="prop-size-input" min="0" value="@imageItem.Height"
+                               @onchange="e => { imageItem.Height = int.TryParse(e.Value?.ToString(), out var v) ? Math.Max(0, v) : imageItem.Height; State.NotifyChange(); }"
+                               placeholder="auto" />
+                    </div>
+                </div>
+                <span class="prop-hint">H = 0 untuk tinggi otomatis</span>
             </div>
 
             @if (!string.IsNullOrWhiteSpace(imageItem.Src))
