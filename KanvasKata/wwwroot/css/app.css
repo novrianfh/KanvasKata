@@ -156,7 +156,7 @@ h1:focus {
     height: 480px;
     background: #fff;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
     flex-shrink: 0;
 }
@@ -182,6 +182,49 @@ h1:focus {
 .kanvas-item.editing {
     cursor: text;
     outline-color: #6366f1;
+}
+
+.item-layer-bar {
+    position: absolute;
+    top: -34px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    background: #1e1e2e;
+    border-radius: 6px;
+    padding: 3px 5px;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    white-space: nowrap;
+}
+
+.layer-btn {
+    background: transparent;
+    border: none;
+    color: #c9d1e0;
+    font-size: 0.75rem;
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+    transition: background 0.1s, color 0.1s;
+}
+
+.layer-btn:hover {
+    background: rgba(99, 102, 241, 0.4);
+    color: #fff;
+}
+
+.layer-index {
+    font-size: 0.6875rem;
+    color: #7c85a0;
+    padding: 0 4px;
+    min-width: 20px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    border-left: 1px solid #2e3048;
+    border-right: 1px solid #2e3048;
 }
 
 .kanvas-item-text {
