@@ -8,7 +8,16 @@ public class CanvasStateService
 
     public IReadOnlyList<CanvasItem> Items => _items;
     public CanvasItem? SelectedItem { get; private set; }
+    public int CanvasWidth { get; private set; } = 640;
+    public int CanvasHeight { get; private set; } = 480;
     public event Action? OnChange;
+
+    public void ResizeCanvas(int width, int height)
+    {
+        CanvasWidth = Math.Max(100, width);
+        CanvasHeight = Math.Max(100, height);
+        OnChange?.Invoke();
+    }
 
     public void AddItem(CanvasItem item)
     {

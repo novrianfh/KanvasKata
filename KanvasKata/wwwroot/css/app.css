@@ -95,6 +95,44 @@ h1:focus {
     text-align: center;
 }
 
+.toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: #e2e2e2;
+    margin: 0 0.25rem;
+}
+
+.toolbar-canvas-size {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.toolbar-size-input {
+    width: 60px;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    text-align: center;
+    outline: none;
+}
+
+.toolbar-size-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.toolbar-size-sep {
+    font-size: 0.875rem;
+    color: #aaa;
+}
+
+.toolbar-size-unit {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
 .toolbar-image-form {
     display: flex;
     align-items: center;
@@ -152,8 +190,6 @@ h1:focus {
 
 .kanvas {
     position: relative;
-    width: 640px;
-    height: 480px;
     background: #fff;
     border-radius: 16px;
     overflow: hidden;

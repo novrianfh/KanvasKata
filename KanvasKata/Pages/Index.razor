@@ -11,7 +11,7 @@
          @onmouseleave="OnMouseUp">
 
         <div class="editor-toolbar">
-            <span class="toolbar-label">Tambah Elemen</span>
+            <span class="toolbar-label">Tambah</span>
             <button class="toolbar-btn" @onclick="AddText">
                 <span class="toolbar-btn-icon">T</span> Text
             </button>
@@ -28,6 +28,20 @@
                     <button class="toolbar-btn" @onclick="() => _showAddImage = false">Batal</button>
                 </div>
             }
+
+            <div class="toolbar-divider"></div>
+
+            <span class="toolbar-label">Kanvas</span>
+            <div class="toolbar-canvas-size">
+                <input class="toolbar-size-input" type="number" min="100" max="3000"
+                       value="@State.CanvasWidth"
+                       @onchange="e => OnCanvasSizeChange(e, isWidth: true)" />
+                <span class="toolbar-size-sep">×</span>
+                <input class="toolbar-size-input" type="number" min="100" max="3000"
+                       value="@State.CanvasHeight"
+                       @onchange="e => OnCanvasSizeChange(e, isWidth: false)" />
+                <span class="toolbar-size-unit">px</span>
+            </div>
         </div>
 
         <div class="editor-canvas" @onclick="OnCanvasClick">
@@ -38,7 +52,7 @@
                     <p>Kanvas kosong. Tambah elemen dari toolbar di atas.</p>
                 </div>
             }
-            <div class="kanvas" @onclick:stopPropagation>
+            <div class="kanvas" style="width: @(State.CanvasWidth)px; height: @(State.CanvasHeight)px;" @onclick:stopPropagation>
                 @foreach (var item in State.Items)
                 {
                     if (item is ImageItem img)
@@ -95,9 +109,6 @@
 </div>
 
 @code {
-    private const float CanvasWidth = 640;
-    private const float CanvasHeight = 480;
-
     private bool _showAddImage;
     private string _newImageUrl = string.Empty;
 
@@ -126,6 +137,13 @@
     };
 
     // ── Toolbar ──
+
+    private void OnCanvasSizeChange(ChangeEventArgs e, bool isWidth)
+    {
+        if (!int.TryParse(e.Value?.ToString(), out var val)) return;
+        if (isWidth) State.ResizeCanvas(val, State.CanvasHeight);
+        else State.ResizeCanvas(State.CanvasWidth, val);
+    }
 
     private void AddText()
     {
@@ -183,8 +201,8 @@
             _isDragging = true;
         if (_isDragging)
         {
-            _dragging.X = Math.Clamp((float)(_dragging.X + dx), 0, CanvasWidth - 20);
-            _dragging.Y = Math.Clamp((float)(_dragging.Y + dy), 0, CanvasHeight - 20);
+            _dragging.X += (float)dx;
+            _dragging.Y += (float)dy;
             _lastMouseX = e.ClientX;
             _lastMouseY = e.ClientY;
             StateHasChanged();
