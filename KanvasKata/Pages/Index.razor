@@ -349,7 +349,7 @@
 
     private static string TextStyle(TextItem t)
     {
-        var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color}; text-align: {t.Align};";
+        var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color}; text-align: {t.Align}; white-space: pre-wrap;";
         if (t.StrokeWidth > 0)
             style += $" -webkit-text-stroke: {t.StrokeWidth}px {t.StrokeColor};";
         return style;
