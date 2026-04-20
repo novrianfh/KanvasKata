@@ -95,6 +95,23 @@ h1:focus {
     text-align: center;
 }
 
+.toolbar-btn-export {
+    background: #18181b;
+    border-color: #18181b;
+    color: #fff;
+}
+
+.toolbar-btn-export:hover:not(:disabled) {
+    background: #3f3f46;
+    border-color: #3f3f46;
+    color: #fff;
+}
+
+.toolbar-btn-export:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .toolbar-divider {
     width: 1px;
     height: 20px;

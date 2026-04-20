@@ -2,6 +2,7 @@
 @using KanvasKata.Features.Editor.Models
 @using KanvasKata.Features.Editor.Services
 @inject CanvasStateService State
+@inject IJSRuntime JS
 @implements IDisposable
 
 <div class="editor-layout">
@@ -28,6 +29,19 @@
                     <button class="toolbar-btn" @onclick="() => _showAddImage = false">Batal</button>
                 </div>
             }
+
+            <div class="toolbar-divider"></div>
+
+            <button class="toolbar-btn toolbar-btn-export" @onclick="ExportJpg" disabled="@_exporting">
+                @if (_exporting)
+                {
+                    <span>Exporting…</span>
+                }
+                else
+                {
+                    <span>⬇ Export PNG</span>
+                }
+            </button>
 
             <div class="toolbar-divider"></div>
 
@@ -122,6 +136,7 @@
 @code {
     private static readonly string[] ResizeHandles = ["nw", "n", "ne", "w", "e", "sw", "s", "se"];
 
+    private bool _exporting;
     private bool _showAddImage;
     private string _newImageUrl = string.Empty;
 
@@ -153,6 +168,17 @@
         <button class="layer-btn" title="Mundur satu layer" @onclick="() => State.SendBackward(item)">↓</button>
         <button class="layer-btn" title="Ke belakang" @onclick="() => State.SendToBack(item)">⬇</button>
     };
+
+    // ── Export ──
+
+    private async Task ExportJpg()
+    {
+        _exporting = true;
+        StateHasChanged();
+        await Task.Delay(50); // beri waktu re-render sebelum capture
+        await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", "kanvaskata.png");
+        _exporting = false;
+    }
 
     // ── Toolbar ──
 
