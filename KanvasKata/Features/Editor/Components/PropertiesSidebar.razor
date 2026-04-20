@@ -1,0 +1,149 @@
+@using KanvasKata.Features.Editor.Models
+@using KanvasKata.Features.Editor.Services
+@inject CanvasStateService State
+@implements IDisposable
+
+<aside class="properties-sidebar">
+    <div class="sidebar-header">
+        <span class="sidebar-title">Properties</span>
+    </div>
+
+    @if (State.SelectedItem is null)
+    {
+        <div class="sidebar-empty">
+            <p>Pilih elemen di kanvas untuk mengedit propertinya.</p>
+        </div>
+    }
+    else if (State.SelectedItem is TextItem textItem)
+    {
+        <div class="sidebar-section">
+            <div class="sidebar-item-label">
+                @(textItem.Type == CanvasItemType.Title ? "Title" : "Subtitle")
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Font Family</label>
+                <select class="prop-select" value="@textItem.FontFamily"
+                        @onchange="e => { textItem.FontFamily = e.Value?.ToString() ?? textItem.FontFamily; State.NotifyChange(); }">
+                    @foreach (var font in FontFamilies)
+                    {
+                        <option value="@font" selected="@(textItem.FontFamily == font)" style="font-family: '@font'">@font</option>
+                    }
+                </select>
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Font Size <span class="prop-value-badge">@textItem.FontSize px</span></label>
+                <input type="range" class="prop-range" min="8" max="120" value="@textItem.FontSize"
+                       @oninput="e => { textItem.FontSize = int.TryParse(e.Value?.ToString(), out var v) ? v : textItem.FontSize; State.NotifyChange(); }" />
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Alignment</label>
+                <div class="align-buttons">
+                    @foreach (var (align, icon) in AlignOptions)
+                    {
+                        <button class="align-btn @(textItem.Align == align ? "active" : "")"
+                                title="@align"
+                                @onclick="() => { textItem.Align = align; State.NotifyChange(); }">
+                            @icon
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Color</label>
+                <div class="color-row">
+                    <input type="color" class="prop-color" value="@textItem.Color"
+                           @oninput="e => { textItem.Color = e.Value?.ToString() ?? textItem.Color; State.NotifyChange(); }" />
+                    <span class="prop-color-value">@textItem.Color</span>
+                </div>
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Stroke Size <span class="prop-value-badge">@textItem.StrokeWidth px</span></label>
+                <input type="range" class="prop-range" min="0" max="20" value="@textItem.StrokeWidth"
+                       @oninput="e => { textItem.StrokeWidth = int.TryParse(e.Value?.ToString(), out var v) ? v : textItem.StrokeWidth; State.NotifyChange(); }" />
+            </div>
+
+            <div class="prop-group">
+                <label class="prop-label">Stroke Color</label>
+                <div class="color-row">
+                    <input type="color" class="prop-color" value="@textItem.StrokeColor"
+                           @oninput="e => { textItem.StrokeColor = e.Value?.ToString() ?? textItem.StrokeColor; State.NotifyChange(); }" />
+                    <span class="prop-color-value">@textItem.StrokeColor</span>
+                </div>
+            </div>
+        </div>
+    }
+    else if (State.SelectedItem is ImageItem imageItem)
+    {
+        <div class="sidebar-section">
+            <div class="sidebar-item-label">Image</div>
+
+            <div class="prop-group">
+                <label class="prop-label">Image URL</label>
+                <textarea class="prop-textarea" rows="3"
+                          @bind="_imageUrl" @bind:event="oninput"></textarea>
+                <button class="prop-apply-btn" @onclick="ApplyImageUrl">Apply</button>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(imageItem.Src))
+            {
+                <div class="prop-group">
+                    <label class="prop-label">Preview</label>
+                    <img class="prop-image-preview" src="@imageItem.Src" alt="preview" />
+                </div>
+            }
+        </div>
+    }
+</aside>
+
+@code {
+    private string _imageUrl = string.Empty;
+
+    private static readonly string[] FontFamilies =
+    [
+        "Segoe UI", "Arial", "Helvetica", "Georgia", "Times New Roman",
+        "Courier New", "Verdana", "Trebuchet MS"
+    ];
+
+    private static readonly (string align, string icon)[] AlignOptions =
+    [
+        ("left", "⬤≡"),
+        ("center", "≡≡"),
+        ("right", "≡⬤"),
+    ];
+
+    protected override void OnInitialized()
+    {
+        State.OnChange += OnStateChanged;
+        SyncImageUrl();
+    }
+
+    protected override void OnParametersSet() => SyncImageUrl();
+
+    private void SyncImageUrl()
+    {
+        if (State.SelectedItem is ImageItem img)
+            _imageUrl = img.Src;
+    }
+
+    private void OnStateChanged()
+    {
+        SyncImageUrl();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void ApplyImageUrl()
+    {
+        if (State.SelectedItem is ImageItem img)
+        {
+            img.Src = _imageUrl.Trim();
+            State.NotifyChange();
+        }
+    }
+
+    public void Dispose() => State.OnChange -= OnStateChanged;
+}

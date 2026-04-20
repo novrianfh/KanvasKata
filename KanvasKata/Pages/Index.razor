@@ -1,0 +1,59 @@
+@page "/"
+@using KanvasKata.Features.Editor.Models
+@using KanvasKata.Features.Editor.Services
+@inject CanvasStateService State
+@implements IDisposable
+
+<div class="editor-layout">
+    <div class="editor-canvas" @onclick="() => State.SelectItem(null)">
+        <div class="kanvas" @onclick:stopPropagation>
+            @foreach (var item in State.Items)
+            {
+                if (item is ImageItem img)
+                {
+                    <div class="kanvas-item @(State.SelectedItem?.Id == img.Id ? "selected" : "")"
+                         @onclick="() => State.SelectItem(img)"
+                         @onclick:stopPropagation>
+                        <div class="kanvas-image-wrapper">
+                            <img class="kanvas-image" src="@img.Src" alt="@img.Alt" />
+                        </div>
+                    </div>
+                }
+                else if (item is TextItem text)
+                {
+                    <div class="kanvas-item @(State.SelectedItem?.Id == text.Id ? "selected" : "")"
+                         style="text-align: @text.Align;"
+                         @onclick="() => State.SelectItem(text)"
+                         @onclick:stopPropagation>
+                        @if (text.Type == CanvasItemType.Title)
+                        {
+                            <h1 class="kanvas-title" style="@TextStyle(text)">@text.Text</h1>
+                        }
+                        else
+                        {
+                            <p class="kanvas-subtitle" style="@TextStyle(text)">@text.Text</p>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <PropertiesSidebar />
+</div>
+
+@code {
+    protected override void OnInitialized() => State.OnChange += OnStateChanged;
+
+    private void OnStateChanged() => InvokeAsync(StateHasChanged);
+
+    private static string TextStyle(TextItem t)
+    {
+        var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color};";
+        if (t.StrokeWidth > 0)
+            style += $" -webkit-text-stroke: {t.StrokeWidth}px {t.StrokeColor};";
+        return style;
+    }
+
+    public void Dispose() => State.OnChange -= OnStateChanged;
+}

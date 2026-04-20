@@ -1,0 +1,55 @@
+## Build output
+bin/
+obj/
+out/
+publish/
+
+## User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vs/
+TestResults/
+*.VisualState.xml
+
+## Rider / JetBrains
+.idea/
+
+## VS Code
+.vscode/
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.assets.json
+
+## .NET tooling
+artifacts/
+*.binlog
+*.ide
+
+## ASP.NET / Blazor generated assets
+wwwroot/_framework/
+*.StaticWebAssets.xml
+*.staticwebassets.runtime.json
+*.staticwebassets.endpoints.json
+
+## OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+## Logs
+*.log
+logs/
+
+## Environment files
+.env
+.env.*
+!.env.example

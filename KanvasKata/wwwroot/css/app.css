@@ -1,0 +1,322 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f5f0;
+}
+
+h1:focus {
+    outline: none;
+}
+
+/* ── Editor Layout ── */
+
+.editor-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.editor-canvas {
+    flex: 1;
+    overflow-y: auto;
+    background: #dcdcd4;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 2rem;
+}
+
+/* ── Canvas Card ── */
+
+.kanvas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 640px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+    gap: 0;
+}
+
+.kanvas-item {
+    cursor: pointer;
+    position: relative;
+    transition: outline 0.1s;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+}
+
+.kanvas-item:hover {
+    outline-color: rgba(99, 102, 241, 0.35);
+}
+
+.kanvas-item.selected {
+    outline-color: #6366f1;
+}
+
+.kanvas-image-wrapper {
+    width: 100%;
+    line-height: 0;
+}
+
+.kanvas-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.kanvas-content-item {
+    padding: 1.5rem 2rem;
+}
+
+.kanvas-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    padding: 1.25rem 2rem 0.5rem;
+}
+
+.kanvas-subtitle {
+    font-size: 1.125rem;
+    color: #555;
+    line-height: 1.6;
+    padding: 0.5rem 2rem 1.5rem;
+}
+
+/* ── Properties Sidebar ── */
+
+.properties-sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: #fff;
+    border-left: 1px solid #e2e2e2;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e2e2e2;
+    background: #fafafa;
+}
+
+.sidebar-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+}
+
+.sidebar-empty {
+    padding: 2rem 1.25rem;
+    color: #aaa;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.sidebar-section {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sidebar-item-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6366f1;
+    background: #eef2ff;
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* ── Property Controls ── */
+
+.prop-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.prop-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prop-value-badge {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #888;
+    background: #f3f4f6;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+}
+
+.prop-select {
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    color: #1a1a1a;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    appearance: auto;
+}
+
+.prop-select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.prop-range {
+    width: 100%;
+    accent-color: #6366f1;
+    cursor: pointer;
+}
+
+.align-buttons {
+    display: flex;
+    gap: 0.375rem;
+}
+
+.align-btn {
+    flex: 1;
+    padding: 0.375rem 0.25rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    color: #555;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.align-btn:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+}
+
+.align-btn.active {
+    background: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+
+.color-row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.prop-color {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 2px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    background: none;
+}
+
+.prop-color-value {
+    font-size: 0.8125rem;
+    color: #555;
+    font-family: 'Courier New', monospace;
+}
+
+.prop-textarea {
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #1a1a1a;
+    resize: vertical;
+    outline: none;
+    line-height: 1.5;
+}
+
+.prop-textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.prop-apply-btn {
+    margin-top: 0.25rem;
+    padding: 0.4rem 1rem;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    align-self: flex-start;
+}
+
+.prop-apply-btn:hover {
+    background: #4f46e5;
+}
+
+.prop-image-preview {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #e2e2e2;
+}
+
+/* ── Blazor Error UI ── */
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
