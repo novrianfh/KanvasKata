@@ -10,6 +10,7 @@ public class CanvasStateService
     public CanvasItem? SelectedItem { get; private set; }
     public int CanvasWidth { get; private set; } = 640;
     public int CanvasHeight { get; private set; } = 480;
+    public string CanvasTitle { get; set; } = "kanvasKata";
     public event Action? OnChange;
 
     public void ResizeCanvas(int width, int height)

@@ -75,7 +75,14 @@
                 StrokeColor = t.StrokeColor,
                 X = t.X,
                 Y = t.Y
-            });
+            }).ToList();
+
+        var largestText = template.Items
+            .Where(t => t.Type == "text" && !string.IsNullOrWhiteSpace(t.Text))
+            .MaxBy(t => t.FontSize);
+
+        if (largestText is not null)
+            State.CanvasTitle = largestText.Text!.Replace("\n", " ").Trim();
 
         State.LoadItems(template.CanvasWidth, template.CanvasHeight, items);
     }

@@ -69,6 +69,13 @@
                        @onchange="e => OnCanvasSizeChange(e, isWidth: false)" />
                 <span class="toolbar-size-unit">px</span>
             </div>
+
+            <div class="toolbar-divider"></div>
+
+            <span class="toolbar-label">Judul</span>
+            <input class="toolbar-title-input" type="text" placeholder="Judul kanvas…"
+                   value="@State.CanvasTitle"
+                   @onchange="e => State.CanvasTitle = e.Value?.ToString() ?? State.CanvasTitle" />
         </div>
 
         <div class="editor-canvas" @onclick="OnCanvasClick">
@@ -191,7 +198,8 @@
         _exportScale = scale;
         StateHasChanged();
         await Task.Delay(50);
-        await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", "kanvaskata.png", scale);
+        var filename = $"{State.CanvasTitle}.png";
+        await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", filename, scale);
         _exporting = false;
         _exportScale = 0;
     }
@@ -208,7 +216,8 @@
     private void AddText()
     {
         var offset = State.Items.Count * 20 % 120;
-        State.AddItem(new TextItem { X = 40 + offset, Y = 40 + offset });
+        var text = State.Items.Count == 0 ? State.CanvasTitle : "Teks";
+        State.AddItem(new TextItem { Text = text, X = 40 + offset, Y = 40 + offset });
     }
 
     private void ToggleAddImage()
