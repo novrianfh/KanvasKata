@@ -72,5 +72,16 @@ public class CanvasStateService
 
     public int IndexOf(CanvasItem item) => _items.IndexOf(item);
 
+    public void LoadItems(int canvasWidth, int canvasHeight, IEnumerable<CanvasItem> items)
+    {
+        _items.Clear();
+        SelectedItem = null;
+        CanvasWidth = Math.Max(100, canvasWidth);
+        CanvasHeight = Math.Max(100, canvasHeight);
+        foreach (var item in items)
+            _items.Add(item);
+        OnChange?.Invoke();
+    }
+
     public void NotifyChange() => OnChange?.Invoke();
 }

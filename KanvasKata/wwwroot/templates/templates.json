@@ -1,0 +1,243 @@
+{
+  "templates": [
+    {
+      "id": "fajar-baru",
+      "name": "Fajar Baru",
+      "description": "Semangat memulai hari baru",
+      "thumbnail": "https://picsum.photos/seed/fajar/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/fajar/640/240",
+          "alt": "Fajar",
+          "width": 640,
+          "height": 240
+        },
+        {
+          "type": "text",
+          "x": 60,
+          "y": 272,
+          "text": "Setiap fajar membawa\nharapan yang baru.",
+          "fontFamily": "Georgia",
+          "fontSize": 28,
+          "align": "center",
+          "color": "#1a1a1a",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 60,
+          "y": 432,
+          "text": "— Pepatah Nusantara",
+          "fontFamily": "Segoe UI",
+          "fontSize": 15,
+          "align": "center",
+          "color": "#888888",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "samudra-jiwa",
+      "name": "Samudra Jiwa",
+      "description": "Ketenangan di tengah badai",
+      "thumbnail": "https://picsum.photos/seed/samudra/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 380,
+          "y": 0,
+          "src": "https://picsum.photos/seed/samudra/260/480",
+          "alt": "Samudra",
+          "width": 260,
+          "height": 480
+        },
+        {
+          "type": "text",
+          "x": 30,
+          "y": 60,
+          "text": "SAMUDRA\nJIWA",
+          "fontFamily": "Georgia",
+          "fontSize": 34,
+          "align": "left",
+          "color": "#1a4870",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 30,
+          "y": 210,
+          "text": "Jiwa yang tenang tidak\ngoyah oleh ombak\nkehidupan.",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "left",
+          "color": "#333333",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 30,
+          "y": 415,
+          "text": "— Falsafah Melayu",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "left",
+          "color": "#999999",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "mimpi-berbintang",
+      "name": "Mimpi Berbintang",
+      "description": "Raih cita-citamu setinggi langit",
+      "thumbnail": "https://picsum.photos/seed/bintang/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/bintang/640/480",
+          "alt": "Bintang",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "type": "text",
+          "x": 50,
+          "y": 100,
+          "text": "Gantungkan mimpimu\nsetinggi bintang\ndi langit.",
+          "fontFamily": "Georgia",
+          "fontSize": 32,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 1,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 50,
+          "y": 390,
+          "text": "— Ir. Soekarno",
+          "fontFamily": "Segoe UI",
+          "fontSize": 17,
+          "align": "center",
+          "color": "#eeeeee",
+          "strokeWidth": 1,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "pohon-kehidupan",
+      "name": "Pohon Kehidupan",
+      "description": "Kekuatan tumbuh dari akar",
+      "thumbnail": "https://picsum.photos/seed/pohon/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 160,
+          "y": 20,
+          "src": "https://picsum.photos/seed/pohon/320/240",
+          "alt": "Pohon",
+          "width": 320,
+          "height": 240
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 290,
+          "text": "Akar yang kuat menghasilkan\npohon yang tinggi.",
+          "fontFamily": "Georgia",
+          "fontSize": 24,
+          "align": "center",
+          "color": "#2c5f2e",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 435,
+          "text": "— Falsafah Jawa",
+          "fontFamily": "Segoe UI",
+          "fontSize": 15,
+          "align": "center",
+          "color": "#5a8a5c",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "cahaya-hati",
+      "name": "Cahaya Hati",
+      "description": "Ketulusan yang tak padam",
+      "thumbnail": "https://picsum.photos/seed/cahaya/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 20,
+          "y": 20,
+          "src": "https://picsum.photos/seed/cahaya/260/440",
+          "alt": "Cahaya",
+          "width": 260,
+          "height": 440
+        },
+        {
+          "type": "text",
+          "x": 310,
+          "y": 50,
+          "text": "Cahaya Hati",
+          "fontFamily": "Georgia",
+          "fontSize": 30,
+          "align": "left",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 310,
+          "y": 140,
+          "text": "Hati yang tulus adalah\ncahaya yang tidak\npernah padam.",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "left",
+          "color": "#3c3c3c",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 310,
+          "y": 395,
+          "text": "— Kebijaksanaan Timur",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "left",
+          "color": "#999999",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    }
+  ]
+}

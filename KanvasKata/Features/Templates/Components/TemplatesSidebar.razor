@@ -1,0 +1,82 @@
+@using KanvasKata.Features.Editor.Models
+@using KanvasKata.Features.Editor.Services
+@using KanvasKata.Features.Templates.Models
+@using KanvasKata.Features.Templates.Services
+@inject TemplateService TemplateService
+@inject CanvasStateService State
+
+<aside class="templates-sidebar">
+    <div class="sidebar-header">
+        <span class="sidebar-title">Templates</span>
+    </div>
+
+    @if (_loading)
+    {
+        <div class="sidebar-empty">Memuat templates…</div>
+    }
+    else if (_templates.Count == 0)
+    {
+        <div class="sidebar-empty">Tidak ada template tersedia.</div>
+    }
+    else
+    {
+        <div class="templates-list">
+            @foreach (var t in _templates)
+            {
+                var template = t;
+                <div class="template-card @(_activeId == template.Id ? "template-card-active" : "")"
+                     @onclick="() => ApplyTemplate(template)">
+                    <div class="template-thumb">
+                        <img src="@template.Thumbnail" alt="@template.Name" loading="lazy" />
+                    </div>
+                    <div class="template-info">
+                        <span class="template-name">@template.Name</span>
+                        <span class="template-desc">@template.Description</span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</aside>
+
+@code {
+    private List<TemplateItem> _templates = [];
+    private bool _loading = true;
+    private string _activeId = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _templates = await TemplateService.GetTemplatesAsync();
+        _loading = false;
+    }
+
+    private void ApplyTemplate(TemplateItem template)
+    {
+        _activeId = template.Id;
+
+        var items = template.Items.Select<TemplateCanvasItem, CanvasItem>(t => t.Type == "image"
+            ? new ImageItem
+            {
+                Src = t.Src ?? "",
+                Alt = t.Alt,
+                Width = t.Width,
+                Height = t.Height,
+                X = t.X,
+                Y = t.Y
+            }
+            : new TextItem
+            {
+                Text = t.Text ?? "",
+                FontFamily = t.FontFamily,
+                FontSize = t.FontSize,
+                Align = t.Align,
+                Color = t.Color,
+                StrokeWidth = t.StrokeWidth,
+                StrokeColor = t.StrokeColor,
+                X = t.X,
+                Y = t.Y
+            });
+
+        State.LoadItems(template.CanvasWidth, template.CanvasHeight, items);
+    }
+}
