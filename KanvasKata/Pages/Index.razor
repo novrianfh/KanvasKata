@@ -196,10 +196,20 @@
     {
         _exporting = true;
         _exportScale = scale;
+
+        var previousSelection = State.SelectedItem;
+        var previousEditing = _editingItemId;
+        State.SelectItem(null);
+        _editingItemId = null;
+
         StateHasChanged();
         await Task.Delay(50);
+
         var filename = $"{State.CanvasTitle}.png";
         await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", filename, scale);
+
+        State.SelectItem(previousSelection);
+        _editingItemId = previousEditing;
         _exporting = false;
         _exportScale = 0;
     }
