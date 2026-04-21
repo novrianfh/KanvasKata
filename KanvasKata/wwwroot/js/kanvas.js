@@ -1,5 +1,5 @@
 window.kanvasExport = {
-    async exportPng(selector, filename) {
+    async exportPng(selector, filename, scale) {
         const el = document.querySelector(selector);
         if (!el) return;
 
@@ -7,7 +7,7 @@ window.kanvasExport = {
             useCORS: true,
             allowTaint: true,
             backgroundColor: null,
-            scale: 2,
+            scale: scale || 1,
             logging: false,
         });
 

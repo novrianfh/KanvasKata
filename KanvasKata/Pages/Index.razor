@@ -32,16 +32,28 @@
 
             <div class="toolbar-divider"></div>
 
-            <button class="toolbar-btn toolbar-btn-export" @onclick="ExportJpg" disabled="@_exporting">
-                @if (_exporting)
-                {
-                    <span>Exporting…</span>
-                }
-                else
-                {
-                    <span>⬇ Export PNG</span>
-                }
-            </button>
+            <div class="toolbar-export-group">
+                <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(1)" disabled="@_exporting">
+                    @if (_exporting && _exportScale == 1)
+                    {
+                        <span>Exporting…</span>
+                    }
+                    else
+                    {
+                        <span>⬇ Export 1×</span>
+                    }
+                </button>
+                <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
+                    @if (_exporting && _exportScale == 2)
+                    {
+                        <span>Exporting…</span>
+                    }
+                    else
+                    {
+                        <span>⬇ Export 2×</span>
+                    }
+                </button>
+            </div>
 
             <div class="toolbar-divider"></div>
 
@@ -137,6 +149,7 @@
     private static readonly string[] ResizeHandles = ["nw", "n", "ne", "w", "e", "sw", "s", "se"];
 
     private bool _exporting;
+    private int _exportScale;
     private bool _showAddImage;
     private string _newImageUrl = string.Empty;
 
@@ -171,13 +184,15 @@
 
     // ── Export ──
 
-    private async Task ExportJpg()
+    private async Task ExportPng(int scale)
     {
         _exporting = true;
+        _exportScale = scale;
         StateHasChanged();
-        await Task.Delay(50); // beri waktu re-render sebelum capture
-        await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", "kanvaskata.png");
+        await Task.Delay(50);
+        await JS.InvokeVoidAsync("kanvasExport.exportPng", ".kanvas", "kanvaskata.png", scale);
         _exporting = false;
+        _exportScale = 0;
     }
 
     // ── Toolbar ──
