@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Bash(git -C /Users/novrianfh/KanvasKata add README.md)",
+      "Bash(git -C /Users/novrianfh/KanvasKata commit -m \"add README\")",
+      "Bash(git *)"
     ]
   }
 }
