@@ -2,6 +2,8 @@
 
 Aplikasi desain canvas berbasis browser, mirip Canva versi ringan, dibangun dengan Blazor WebAssembly (.NET 10).
 
+<img width="1920" alt="image" src="https://github.com/user-attachments/assets/178f777a-b47f-4242-994d-8d4ef0433a1e" />
+
 ## Stack
 
 - **Framework:** Blazor WebAssembly (.NET 10)
