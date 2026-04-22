@@ -550,6 +550,9 @@
     private static string TextStyle(TextItem t)
     {
         var style = $"font-family: '{t.FontFamily}', sans-serif; font-size: {t.FontSize}px; color: {t.Color}; text-align: {t.Align}; white-space: pre-wrap;";
+        if (t.Bold) style += " font-weight: bold;";
+        if (t.Italic) style += " font-style: italic;";
+        if (t.Underline) style += " text-decoration: underline;";
         if (t.StrokeWidth > 0)
             style += $" -webkit-text-stroke: {t.StrokeWidth}px {t.StrokeColor};";
         return style;

@@ -16,6 +16,9 @@ public class TextItem : CanvasItem
     public string Color { get; set; } = "#1a1a1a";
     public int StrokeWidth { get; set; } = 0;
     public string StrokeColor { get; set; } = "#000000";
+    public bool Bold { get; set; } = false;
+    public bool Italic { get; set; } = false;
+    public bool Underline { get; set; } = false;
 }
 
 public class ImageItem : CanvasItem

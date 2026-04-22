@@ -61,6 +61,24 @@
             </div>
 
             <div class="prop-group">
+                <label class="prop-label">Format</label>
+                <div class="format-buttons">
+                    <button class="format-btn @(textItem.Bold ? "active" : "")" title="Bold"
+                            @onclick="() => { textItem.Bold = !textItem.Bold; State.NotifyChange(); }">
+                        <b>B</b>
+                    </button>
+                    <button class="format-btn format-btn-italic @(textItem.Italic ? "active" : "")" title="Italic"
+                            @onclick="() => { textItem.Italic = !textItem.Italic; State.NotifyChange(); }">
+                        <i>I</i>
+                    </button>
+                    <button class="format-btn format-btn-underline @(textItem.Underline ? "active" : "")" title="Underline"
+                            @onclick="() => { textItem.Underline = !textItem.Underline; State.NotifyChange(); }">
+                        <u>U</u>
+                    </button>
+                </div>
+            </div>
+
+            <div class="prop-group">
                 <label class="prop-label">Color</label>
                 <div class="color-row">
                     <input type="color" class="prop-color" value="@textItem.Color"
