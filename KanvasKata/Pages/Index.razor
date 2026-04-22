@@ -7,10 +7,7 @@
 
 <div class="editor-layout">
     <TemplatesSidebar />
-    <div class="editor-main"
-         @onmousemove="OnMouseMove"
-         @onmouseup="OnMouseUp"
-         @onmouseleave="OnMouseUp">
+    <div class="editor-main" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" @onmouseleave="OnMouseUp">
 
         <div class="editor-toolbar">
             <span class="toolbar-label">Tambah</span>
@@ -23,9 +20,8 @@
             @if (_showAddImage)
             {
                 <div class="toolbar-image-form">
-                    <input class="toolbar-image-input" type="text" placeholder="Masukkan URL gambar..."
-                           @bind="_newImageUrl" @bind:event="oninput"
-                           @onkeydown="OnImageInputKeyDown" />
+                    <input class="toolbar-image-input" type="text" placeholder="Masukkan URL gambar..." @bind="_newImageUrl"
+                           @bind:event="oninput" @onkeydown="OnImageInputKeyDown" />
                     <button class="toolbar-btn toolbar-btn-primary" @onclick="AddImage">Tambah</button>
                     <button class="toolbar-btn" @onclick="() => _showAddImage = false">Batal</button>
                 </div>
@@ -33,29 +29,27 @@
 
             <div class="toolbar-divider"></div>
 
-            <div class="toolbar-export-group">
-<button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
-                    @if (_exporting && _exportScale == 2)
-                    {
-                        <span>Exporting…</span>
-                    }
-                    else
-                    {
-                        <span>⬇ Export 2×</span>
-                    }
-                </button>
-            </div>
+           
+            <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
+                @if (_exporting && _exportScale == 2)
+                {
+                    <span>Exporting…</span>
+                }
+                else
+                {
+                    <span>⬇ Export 2×</span>
+                }
+            </button>
 
+           
             <div class="toolbar-divider"></div>
 
             <span class="toolbar-label">Kanvas</span>
             <div class="toolbar-canvas-size">
-                <input class="toolbar-size-input" type="number" min="100" max="3000"
-                       value="@State.CanvasWidth"
+                <input class="toolbar-size-input" type="number" min="100" max="3000" value="@State.CanvasWidth"
                        @onchange="e => OnCanvasSizeChange(e, isWidth: true)" />
                 <span class="toolbar-size-sep">×</span>
-                <input class="toolbar-size-input" type="number" min="100" max="3000"
-                       value="@State.CanvasHeight"
+                <input class="toolbar-size-input" type="number" min="100" max="3000" value="@State.CanvasHeight"
                        @onchange="e => OnCanvasSizeChange(e, isWidth: false)" />
                 <span class="toolbar-size-unit">px</span>
             </div>
@@ -63,8 +57,7 @@
             <div class="toolbar-divider"></div>
 
             <span class="toolbar-label">Judul</span>
-            <input class="toolbar-title-input" type="text" placeholder="Judul kanvas…"
-                   value="@State.CanvasTitle"
+            <input class="toolbar-title-input" type="text" placeholder="Judul kanvas…" value="@State.CanvasTitle"
                    @onchange="e => State.CanvasTitle = e.Value?.ToString() ?? State.CanvasTitle" />
         </div>
 
@@ -76,7 +69,8 @@
                     <p>Kanvas kosong. Tambah elemen dari toolbar di atas.</p>
                 </div>
             }
-            <div class="kanvas" style="width: @(State.CanvasWidth)px; height: @(State.CanvasHeight)px;" @onclick:stopPropagation>
+            <div class="kanvas" style="width: @(State.CanvasWidth)px; height: @(State.CanvasHeight)px;"
+                 @onclick:stopPropagation>
                 @foreach (var item in State.Items)
                 {
                     if (item is ImageItem img)
@@ -85,9 +79,7 @@
                         var isCropping = _cropImg?.Id == img.Id;
                         var hasCrop = img.CropLeft > 0 || img.CropTop > 0 || img.CropRight > 0 || img.CropBottom > 0;
                         <div class="kanvas-item @(isSelected ? "selected" : "") @(isCropping ? "cropping" : "")"
-                             data-item-id="@img.Id"
-                             style="@ImgWrapperStyle(img)"
-                             @onmousedown="e => OnItemMouseDown(e, img)"
+                             data-item-id="@img.Id" style="@ImgWrapperStyle(img)" @onmousedown="e => OnItemMouseDown(e, img)"
                              @onclick:stopPropagation>
                             @if (hasCrop && !isCropping)
                             {
@@ -106,30 +98,33 @@
                                 var hCropN = img.CropLeft + visibleW / 2 - 6;
                                 var hCropW = img.CropTop + visibleH / 2 - 6;
                                 <div class="crop-overlay" style="left: 0; top: 0; width: 100%; height: @(img.CropTop)px;"></div>
-                                <div class="crop-overlay" style="left: 0; bottom: 0; width: 100%; height: @(img.CropBottom)px;"></div>
-                                <div class="crop-overlay" style="left: 0; top: @(img.CropTop)px; width: @(img.CropLeft)px; height: @(visibleH)px;"></div>
-                                <div class="crop-overlay" style="right: 0; top: @(img.CropTop)px; width: @(img.CropRight)px; height: @(visibleH)px;"></div>
-                                <div class="crop-boundary" style="left: @(img.CropLeft)px; top: @(img.CropTop)px; width: @(visibleW)px; height: @(visibleH)px;"></div>
+                                <div class="crop-overlay" style="left: 0; bottom: 0; width: 100%; height: @(img.CropBottom)px;">
+                                </div>
+                                <div class="crop-overlay"
+                                     style="left: 0; top: @(img.CropTop)px; width: @(img.CropLeft)px; height: @(visibleH)px;"></div>
+                                <div class="crop-overlay"
+                                     style="right: 0; top: @(img.CropTop)px; width: @(img.CropRight)px; height: @(visibleH)px;">
+                                </div>
+                                <div class="crop-boundary"
+                                     style="left: @(img.CropLeft)px; top: @(img.CropTop)px; width: @(visibleW)px; height: @(visibleH)px;">
+                                </div>
                                 <div class="crop-handle crop-handle-n" style="left: @(hCropN)px; top: @(img.CropTop - 6)px;"
-                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "n")'
-                                     @onmousedown:stopPropagation></div>
-                                <div class="crop-handle crop-handle-s" style="left: @(hCropN)px; top: @(img.Height - img.CropBottom - 6)px;"
-                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "s")'
-                                     @onmousedown:stopPropagation></div>
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "n")' @onmousedown:stopPropagation></div>
+                                <div class="crop-handle crop-handle-s"
+                                     style="left: @(hCropN)px; top: @(img.Height - img.CropBottom - 6)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "s")' @onmousedown:stopPropagation></div>
                                 <div class="crop-handle crop-handle-w" style="left: @(img.CropLeft - 6)px; top: @(hCropW)px;"
-                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "w")'
-                                     @onmousedown:stopPropagation></div>
-                                <div class="crop-handle crop-handle-e" style="left: @(img.Width - img.CropRight - 6)px; top: @(hCropW)px;"
-                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "e")'
-                                     @onmousedown:stopPropagation></div>
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "w")' @onmousedown:stopPropagation></div>
+                                <div class="crop-handle crop-handle-e"
+                                     style="left: @(img.Width - img.CropRight - 6)px; top: @(hCropW)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "e")' @onmousedown:stopPropagation></div>
                             }
                             else if (isSelected)
                             {
                                 @foreach (var handle in ResizeHandles)
                                 {
                                     var h = handle;
-                                    <div class="resize-handle resize-handle-@h"
-                                         @onmousedown="e => OnResizeMouseDown(e, img, h)"
+                                    <div class="resize-handle resize-handle-@h" @onmousedown="e => OnResizeMouseDown(e, img, h)"
                                          @onmousedown:stopPropagation></div>
                                 }
                             }
@@ -138,19 +133,13 @@
                     else if (item is TextItem text)
                     {
                         <div class="kanvas-item kanvas-item-text @Selected(text) @(_editingItemId == text.Id ? "editing" : "")"
-                             style="left: @(text.X)px; top: @(text.Y)px;"
-                             @onmousedown="e => OnItemMouseDown(e, text)"
-                             @ondblclick="() => StartEdit(text)"
-                             @ondblclick:stopPropagation
-                             @onclick:stopPropagation>
+                             style="left: @(text.X)px; top: @(text.Y)px;" @onmousedown="e => OnItemMouseDown(e, text)"
+                             @ondblclick="() => StartEdit(text)" @ondblclick:stopPropagation @onclick:stopPropagation>
                             @if (_editingItemId == text.Id)
                             {
-                                <textarea class="text-edit-input" style="@TextStyle(text)"
-                                          value="@text.Text"
+                                <textarea class="text-edit-input" style="@TextStyle(text)" value="@text.Text"
                                           @oninput="e => { text.Text = e.Value?.ToString() ?? text.Text; State.NotifyChange(); }"
-                                          @onblur="StopEdit"
-                                          @onkeydown="OnEditKeyDown"
-                                          @onmousedown:stopPropagation
+                                          @onblur="StopEdit" @onkeydown="OnEditKeyDown" @onmousedown:stopPropagation
                                           @ref="_editRef"></textarea>
                             }
                             else
@@ -165,9 +154,7 @@
                 {
                     var sel = State.SelectedItem;
                     var barY = (int)Math.Max(4, sel.Y - 34);
-                    <div class="item-layer-bar"
-                         style="left: @((int)sel.X)px; top: @(barY)px;"
-                         @onmousedown:stopPropagation
+                    <div class="item-layer-bar" style="left: @((int)sel.X)px; top: @(barY)px;" @onmousedown:stopPropagation
                          @onclick:stopPropagation>
                         @if (_cropImg is not null && sel is ImageItem cropSel && cropSel.Id == _cropImg.Id)
                         {
@@ -180,7 +167,8 @@
                             @if (sel is ImageItem)
                             {
                                 <span class="layer-bar-sep"></span>
-                                <button class="layer-btn" title="Crop gambar" @onclick='async () => await EnterCropMode((ImageItem)sel)'>✂</button>
+                                <button class="layer-btn" title="Crop gambar"
+                                        @onclick='async () => await EnterCropMode((ImageItem)sel)'>✂</button>
                             }
                         }
                     </div>
