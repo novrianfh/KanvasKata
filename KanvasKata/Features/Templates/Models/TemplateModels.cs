@@ -36,4 +36,8 @@ public class TemplateCanvasItem
     public string Alt { get; set; } = "";
     public int Width { get; set; } = 240;
     public int Height { get; set; }
+    public int CropLeft { get; set; } = 0;
+    public int CropTop { get; set; } = 0;
+    public int CropRight { get; set; } = 0;
+    public int CropBottom { get; set; } = 0;
 }

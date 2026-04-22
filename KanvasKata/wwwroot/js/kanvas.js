@@ -1,3 +1,10 @@
+window.kanvasUtils = {
+    getRenderedImageHeight(itemId) {
+        const img = document.querySelector(`[data-item-id="${itemId}"] img`);
+        return img ? img.getBoundingClientRect().height : 0;
+    }
+};
+
 window.kanvasExport = {
     async exportPng(selector, filename, scale) {
         const el = document.querySelector(selector);

@@ -345,6 +345,50 @@ h1:focus {
 .resize-handle-s  { bottom: -4px;      left: calc(50% - 4px);   cursor: ns-resize;   }
 .resize-handle-se { bottom: -4px;      right: -4px;             cursor: nwse-resize; }
 
+/* ── Crop mode ── */
+
+.kanvas-item.cropping {
+    outline-color: transparent !important;
+    cursor: default;
+}
+
+.crop-overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.crop-boundary {
+    position: absolute;
+    border: 1.5px dashed rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 11;
+}
+
+.crop-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 2px solid #1a1a2e;
+    border-radius: 2px;
+    z-index: 200;
+}
+
+.crop-handle-n, .crop-handle-s { cursor: ns-resize; }
+.crop-handle-w, .crop-handle-e { cursor: ew-resize; }
+
+.layer-bar-sep {
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background: #2e3048;
+    margin: 0 2px;
+    vertical-align: middle;
+}
+
 .text-edit-input {
     display: block;
     background: transparent;

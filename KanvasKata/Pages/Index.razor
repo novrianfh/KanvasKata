@@ -82,12 +82,48 @@
                     if (item is ImageItem img)
                     {
                         var isSelected = State.SelectedItem?.Id == img.Id;
-                        <div class="kanvas-item @(isSelected ? "selected" : "")"
+                        var isCropping = _cropImg?.Id == img.Id;
+                        var hasCrop = img.CropLeft > 0 || img.CropTop > 0 || img.CropRight > 0 || img.CropBottom > 0;
+                        <div class="kanvas-item @(isSelected ? "selected" : "") @(isCropping ? "cropping" : "")"
+                             data-item-id="@img.Id"
                              style="@ImgWrapperStyle(img)"
                              @onmousedown="e => OnItemMouseDown(e, img)"
                              @onclick:stopPropagation>
-                            <img src="@img.Src" alt="@img.Alt" style="@ImgStyle(img)" />
-                            @if (isSelected)
+                            @if (hasCrop && !isCropping)
+                            {
+                                <div style="position: absolute; inset: 0; overflow: hidden;">
+                                    <img src="@img.Src" alt="@img.Alt" style="@ImgStyle(img)" />
+                                </div>
+                            }
+                            else
+                            {
+                                <img src="@img.Src" alt="@img.Alt" style="@ImgStyle(img)" />
+                            }
+                            @if (isCropping)
+                            {
+                                var visibleW = img.Width - img.CropLeft - img.CropRight;
+                                var visibleH = img.Height - img.CropTop - img.CropBottom;
+                                var hCropN = img.CropLeft + visibleW / 2 - 6;
+                                var hCropW = img.CropTop + visibleH / 2 - 6;
+                                <div class="crop-overlay" style="left: 0; top: 0; width: 100%; height: @(img.CropTop)px;"></div>
+                                <div class="crop-overlay" style="left: 0; bottom: 0; width: 100%; height: @(img.CropBottom)px;"></div>
+                                <div class="crop-overlay" style="left: 0; top: @(img.CropTop)px; width: @(img.CropLeft)px; height: @(visibleH)px;"></div>
+                                <div class="crop-overlay" style="right: 0; top: @(img.CropTop)px; width: @(img.CropRight)px; height: @(visibleH)px;"></div>
+                                <div class="crop-boundary" style="left: @(img.CropLeft)px; top: @(img.CropTop)px; width: @(visibleW)px; height: @(visibleH)px;"></div>
+                                <div class="crop-handle crop-handle-n" style="left: @(hCropN)px; top: @(img.CropTop - 6)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "n")'
+                                     @onmousedown:stopPropagation></div>
+                                <div class="crop-handle crop-handle-s" style="left: @(hCropN)px; top: @(img.Height - img.CropBottom - 6)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "s")'
+                                     @onmousedown:stopPropagation></div>
+                                <div class="crop-handle crop-handle-w" style="left: @(img.CropLeft - 6)px; top: @(hCropW)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "w")'
+                                     @onmousedown:stopPropagation></div>
+                                <div class="crop-handle crop-handle-e" style="left: @(img.Width - img.CropRight - 6)px; top: @(hCropW)px;"
+                                     @onmousedown='e => OnCropHandleMouseDown(e, img, "e")'
+                                     @onmousedown:stopPropagation></div>
+                            }
+                            else if (isSelected)
                             {
                                 @foreach (var handle in ResizeHandles)
                                 {
@@ -133,7 +169,20 @@
                          style="left: @((int)sel.X)px; top: @(barY)px;"
                          @onmousedown:stopPropagation
                          @onclick:stopPropagation>
-                        @LayerBarContent(sel)
+                        @if (_cropImg is not null && sel is ImageItem cropSel && cropSel.Id == _cropImg.Id)
+                        {
+                            <button class="layer-btn" title="Terapkan crop" @onclick="ExitCropMode">✓ Apply</button>
+                            <button class="layer-btn" title="Batal crop" @onclick="CancelCrop">✗ Cancel</button>
+                        }
+                        else
+                        {
+                            @LayerBarContent(sel)
+                            @if (sel is ImageItem)
+                            {
+                                <span class="layer-bar-sep"></span>
+                                <button class="layer-btn" title="Crop gambar" @onclick='async () => await EnterCropMode((ImageItem)sel)'>✂</button>
+                            }
+                        }
                     </div>
                 }
             </div>
@@ -159,6 +208,12 @@
     // Resize drag
     private ImageItem? _resizingImg;
     private string? _resizeHandle;
+
+    // Crop
+    private ImageItem? _cropImg;
+    private string? _cropEdge;
+    private int _cropOrigLeft, _cropOrigTop, _cropOrigRight, _cropOrigBottom;
+    private float _cropOrigX, _cropOrigY;
 
     private Guid? _editingItemId;
     private ElementReference _editRef;
@@ -245,6 +300,7 @@
 
     private void OnCanvasClick()
     {
+        if (_cropImg is not null) { ExitCropMode(); return; }
         _editingItemId = null;
         State.SelectItem(null);
     }
@@ -254,6 +310,11 @@
     private void OnItemMouseDown(MouseEventArgs e, CanvasItem item)
     {
         if (_editingItemId == item.Id) return;
+        if (_cropImg is not null)
+        {
+            if (item is ImageItem imgItem && imgItem.Id == _cropImg.Id) return;
+            ExitCropMode();
+        }
         State.SelectItem(item);
         _dragging = item;
         _lastMouseX = e.ClientX;
@@ -277,12 +338,33 @@
         _isDragging = true;
     }
 
+    // ── Crop drag ──
+
+    private void OnCropHandleMouseDown(MouseEventArgs e, ImageItem img, string edge)
+    {
+        _cropEdge = edge;
+        _dragging = null;
+        _resizingImg = null;
+        _lastMouseX = e.ClientX;
+        _lastMouseY = e.ClientY;
+        _isDragging = true;
+    }
+
     // ── Mouse move (shared) ──
 
     private void OnMouseMove(MouseEventArgs e)
     {
         var dx = e.ClientX - _lastMouseX;
         var dy = e.ClientY - _lastMouseY;
+
+        if (_cropImg is not null && _cropEdge is not null)
+        {
+            ApplyCropDrag(_cropImg, _cropEdge, dx, dy);
+            _lastMouseX = e.ClientX;
+            _lastMouseY = e.ClientY;
+            StateHasChanged();
+            return;
+        }
 
         if (_resizingImg is not null && _resizeHandle is not null)
         {
@@ -349,11 +431,76 @@
 
     private void OnMouseUp(MouseEventArgs e)
     {
+        _cropEdge = null;
         if (_resizingImg is not null) State.NotifyChange();
         _dragging = null;
         _isDragging = false;
         _resizingImg = null;
         _resizeHandle = null;
+    }
+
+    // ── Crop logic ──
+
+    private void ApplyCropDrag(ImageItem img, string edge, double dx, double dy)
+    {
+        const int minVisible = 20;
+        switch (edge)
+        {
+            case "n":
+                var newTop = Math.Max(0, Math.Min(img.CropTop + (int)dy, img.Height - img.CropBottom - minVisible));
+                img.Y += newTop - img.CropTop;
+                img.CropTop = newTop;
+                break;
+            case "s":
+                img.CropBottom = Math.Max(0, Math.Min(img.CropBottom - (int)dy, img.Height - img.CropTop - minVisible));
+                break;
+            case "w":
+                var newLeft = Math.Max(0, Math.Min(img.CropLeft + (int)dx, img.Width - img.CropRight - minVisible));
+                img.X += newLeft - img.CropLeft;
+                img.CropLeft = newLeft;
+                break;
+            case "e":
+                img.CropRight = Math.Max(0, Math.Min(img.CropRight - (int)dx, img.Width - img.CropLeft - minVisible));
+                break;
+        }
+    }
+
+    private async Task EnterCropMode(ImageItem img)
+    {
+        if (img.Height == 0)
+        {
+            var h = await JS.InvokeAsync<double>("kanvasUtils.getRenderedImageHeight", img.Id.ToString());
+            img.Height = h > 0 ? (int)h : (int)(img.Width * 0.75);
+        }
+        _cropOrigLeft = img.CropLeft;
+        _cropOrigTop = img.CropTop;
+        _cropOrigRight = img.CropRight;
+        _cropOrigBottom = img.CropBottom;
+        _cropOrigX = img.X;
+        _cropOrigY = img.Y;
+        _cropImg = img;
+        StateHasChanged();
+    }
+
+    private void ExitCropMode()
+    {
+        _cropImg = null;
+        _cropEdge = null;
+        State.NotifyChange();
+    }
+
+    private void CancelCrop()
+    {
+        if (_cropImg is null) return;
+        _cropImg.CropLeft = _cropOrigLeft;
+        _cropImg.CropTop = _cropOrigTop;
+        _cropImg.CropRight = _cropOrigRight;
+        _cropImg.CropBottom = _cropOrigBottom;
+        _cropImg.X = _cropOrigX;
+        _cropImg.Y = _cropOrigY;
+        _cropImg = null;
+        _cropEdge = null;
+        State.NotifyChange();
     }
 
     // ── Inline edit ──
@@ -386,17 +533,31 @@
 
     // ── Style helpers ──
 
-    private static string ImgWrapperStyle(ImageItem img)
+    private string ImgWrapperStyle(ImageItem img)
     {
+        if (_cropImg?.Id == img.Id)
+            return $"left: {img.X - img.CropLeft}px; top: {img.Y - img.CropTop}px; width: {img.Width}px; height: {img.Height}px;";
+        if (img.CropLeft > 0 || img.CropTop > 0 || img.CropRight > 0 || img.CropBottom > 0)
+        {
+            var vw = Math.Max(10, img.Width - img.CropLeft - img.CropRight);
+            var vh = Math.Max(10, img.Height - img.CropTop - img.CropBottom);
+            return $"left: {img.X}px; top: {img.Y}px; width: {vw}px; height: {vh}px;";
+        }
         var s = $"left: {img.X}px; top: {img.Y}px; width: {img.Width}px;";
         if (img.Height > 0) s += $" height: {img.Height}px;";
         return s;
     }
 
-    private static string ImgStyle(ImageItem img) =>
-        img.Height > 0
+    private string ImgStyle(ImageItem img)
+    {
+        if (_cropImg?.Id == img.Id)
+            return "width: 100%; height: 100%; object-fit: fill; display: block; pointer-events: none;";
+        if (img.CropLeft > 0 || img.CropTop > 0 || img.CropRight > 0 || img.CropBottom > 0)
+            return $"position: absolute; left: -{img.CropLeft}px; top: -{img.CropTop}px; width: {img.Width}px; height: {img.Height}px; object-fit: fill; display: block; pointer-events: none;";
+        return img.Height > 0
             ? "width: 100%; height: 100%; object-fit: fill; display: block; pointer-events: none;"
             : "width: 100%; height: auto; display: block; pointer-events: none;";
+    }
 
     private static string TextStyle(TextItem t)
     {

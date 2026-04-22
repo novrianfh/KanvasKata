@@ -24,4 +24,8 @@ public class ImageItem : CanvasItem
     public string Alt { get; set; } = string.Empty;
     public int Width { get; set; } = 240;
     public int Height { get; set; } = 0; // 0 = auto
+    public int CropLeft { get; set; } = 0;
+    public int CropTop { get; set; } = 0;
+    public int CropRight { get; set; } = 0;
+    public int CropBottom { get; set; } = 0;
 }

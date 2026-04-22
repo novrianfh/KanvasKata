@@ -1,6 +1,201 @@
 {
   "templates": [
     {
+      "id": "bingkai-alam",
+      "name": "Bingkai Alam",
+      "description": "Banner foto alam tercrop di bagian atas",
+      "thumbnail": "https://picsum.photos/seed/bingkaialam/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 520,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/bingkaialam/640/480",
+          "alt": "Alam",
+          "width": 640,
+          "height": 480,
+          "cropLeft": 0,
+          "cropTop": 60,
+          "cropRight": 0,
+          "cropBottom": 200
+        },
+        {
+          "type": "text",
+          "x": 60,
+          "y": 252,
+          "text": "Belajarlah dari alam,\nkarena ia adalah\nguru yang abadi.",
+          "fontFamily": "Georgia",
+          "fontSize": 22,
+          "align": "center",
+          "color": "#2c3e50",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 60,
+          "y": 472,
+          "text": "— Pepatah Nusantara",
+          "fontFamily": "Segoe UI",
+          "fontSize": 14,
+          "align": "center",
+          "color": "#888888",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "layar-dua",
+      "name": "Layar Dua",
+      "description": "Dua foto tercrop berdampingan penuh kanvas",
+      "thumbnail": "https://picsum.photos/seed/layar1/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 560,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/layar1/440/560",
+          "alt": "Kiri",
+          "width": 440,
+          "height": 560,
+          "cropLeft": 0,
+          "cropTop": 0,
+          "cropRight": 120,
+          "cropBottom": 0
+        },
+        {
+          "type": "image",
+          "x": 320,
+          "y": 0,
+          "src": "https://picsum.photos/seed/layar2/440/560",
+          "alt": "Kanan",
+          "width": 440,
+          "height": 560,
+          "cropLeft": 120,
+          "cropTop": 0,
+          "cropRight": 0,
+          "cropBottom": 0
+        },
+        {
+          "type": "text",
+          "x": 100,
+          "y": 210,
+          "text": "DUA SISI\nKEHIDUPAN",
+          "fontFamily": "Georgia",
+          "fontSize": 32,
+          "align": "center",
+          "color": "#e65c00",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 100,
+          "y": 324,
+          "text": "Setiap kegelapan\nmenyimpan cahaya.",
+          "fontFamily": "Georgia",
+          "fontSize": 16,
+          "align": "center",
+          "color": "#eeeeee",
+          "strokeWidth": 1,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "galeri-tiga",
+      "name": "Galeri Tiga",
+      "description": "Tiga foto tercrop sama lebar dalam satu baris",
+      "thumbnail": "https://picsum.photos/seed/galeri2/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 500,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 44,
+          "src": "https://picsum.photos/seed/galeri1/280/440",
+          "alt": "Foto 1",
+          "width": 280,
+          "height": 440,
+          "cropLeft": 0,
+          "cropTop": 0,
+          "cropRight": 80,
+          "cropBottom": 0
+        },
+        {
+          "type": "image",
+          "x": 220,
+          "y": 44,
+          "src": "https://picsum.photos/seed/galeri2/280/440",
+          "alt": "Foto 2",
+          "width": 280,
+          "height": 440,
+          "cropLeft": 40,
+          "cropTop": 0,
+          "cropRight": 40,
+          "cropBottom": 0
+        },
+        {
+          "type": "image",
+          "x": 440,
+          "y": 44,
+          "src": "https://picsum.photos/seed/galeri3/280/440",
+          "alt": "Foto 3",
+          "width": 280,
+          "height": 440,
+          "cropLeft": 80,
+          "cropTop": 0,
+          "cropRight": 0,
+          "cropBottom": 0
+        },
+        {
+          "type": "text",
+          "x": 200,
+          "y": 10,
+          "text": "GALERI TIGA MOMEN",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#666666",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
       "id": "fajar-baru",
       "name": "Fajar Baru",
       "description": "Semangat memulai hari baru",
@@ -40,6 +235,15 @@
           "color": "#888888",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -95,6 +299,15 @@
           "color": "#999999",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -123,8 +336,8 @@
           "fontFamily": "Georgia",
           "fontSize": 32,
           "align": "center",
-          "color": "#ffffff",
-          "strokeWidth": 1,
+          "color": "#6096ba",
+          "strokeWidth": 0,
           "strokeColor": "#000000"
         },
         {
@@ -135,9 +348,18 @@
           "fontFamily": "Segoe UI",
           "fontSize": 17,
           "align": "center",
-          "color": "#eeeeee",
-          "strokeWidth": 1,
+          "color": "#ffffff",
+          "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -181,6 +403,15 @@
           "color": "#5a8a5c",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -236,6 +467,15 @@
           "color": "#999999",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -315,6 +555,15 @@
           "color": "#cccccc",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -394,6 +643,15 @@
           "color": "#cccccc",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -473,6 +731,15 @@
           "color": "#cccccc",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -540,6 +807,15 @@
           "color": "#c9a227",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -595,6 +871,15 @@
           "color": "#8D99AE",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     },
@@ -662,6 +947,15 @@
           "color": "#c9a227",
           "strokeWidth": 0,
           "strokeColor": "#000000"
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
         }
       ]
     }
