@@ -238,6 +238,444 @@
           "strokeColor": "#000000"
         }
       ]
+    },
+    {
+      "id": "arbain-1-niat",
+      "name": "Arbain #1 – Niat",
+      "description": "Setiap amalan dinilai dari niatnya",
+      "thumbnail": "https://picsum.photos/seed/arbain1/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 560,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/arbain1/640/560",
+          "alt": "Background",
+          "width": 640,
+          "height": 560
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 32,
+          "text": "HADITS ARBAIN  NO. 1",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 72,
+          "text": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
+          "fontFamily": "Georgia",
+          "fontSize": 34,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 160,
+          "text": "\"Sesungguhnya setiap amalan bergantung\npada niatnya, dan setiap orang akan\nmendapat (balasan) sesuai niatnya.\"",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 440,
+          "text": "HR. Bukhari no.1 & Muslim no.1907",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 468,
+          "text": "Dari Umar bin Khattab RA",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#cccccc",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "arbain-6-halal-haram",
+      "name": "Arbain #6 – Halal & Haram",
+      "description": "Yang halal jelas, yang haram jelas",
+      "thumbnail": "https://picsum.photos/seed/arbain6/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 580,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/arbain6/640/580",
+          "alt": "Background",
+          "width": 640,
+          "height": 580
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 32,
+          "text": "HADITS ARBAIN  NO. 6",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 72,
+          "text": "إِنَّ الْحَلَالَ بَيِّنٌ وَإِنَّ الْحَرَامَ بَيِّنٌ",
+          "fontFamily": "Georgia",
+          "fontSize": 28,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 158,
+          "text": "\"Sesungguhnya yang halal itu jelas\ndan yang haram itu jelas,\ndan di antara keduanya ada perkara\nyang samar (syubhat).\"",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 460,
+          "text": "HR. Bukhari no.52 & Muslim no.1599",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 488,
+          "text": "Dari Nu'man bin Basyir RA",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#cccccc",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "arbain-13-cinta-saudara",
+      "name": "Arbain #13 – Cinta Saudara",
+      "description": "Cintai saudaramu seperti dirimu sendiri",
+      "thumbnail": "https://picsum.photos/seed/arbain13/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 520,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/arbain13/640/520",
+          "alt": "Background",
+          "width": 640,
+          "height": 520
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 32,
+          "text": "HADITS ARBAIN  NO. 13",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 72,
+          "text": "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+          "fontFamily": "Georgia",
+          "fontSize": 22,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 148,
+          "text": "\"Tidak beriman salah seorang di antara kalian\nhingga ia mencintai saudaranya\nsebagaimana ia mencintai dirinya sendiri.\"",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 416,
+          "text": "HR. Bukhari no.13 & Muslim no.45",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 444,
+          "text": "Dari Anas bin Malik RA",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#cccccc",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "quran-insyirah-5-6",
+      "name": "Al-Insyirah 5-6",
+      "description": "Bersama kesulitan ada kemudahan",
+      "thumbnail": "https://picsum.photos/seed/insyirah/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/insyirah/640/480",
+          "alt": "Background",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 30,
+          "text": "QS. AL-INSYIRAH : 5-6",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 72,
+          "text": "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+          "fontFamily": "Georgia",
+          "fontSize": 26,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 172,
+          "text": "\"Maka sesungguhnya bersama kesulitan\nada kemudahan.\nSesungguhnya bersama kesulitan\nada kemudahan.\"",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 432,
+          "text": "Surat Al-Insyirah (94) ayat 5-6",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "quran-baqarah-286",
+      "name": "Al-Baqarah 286",
+      "description": "Allah tidak membebani di luar kemampuan",
+      "thumbnail": "https://picsum.photos/seed/baqarah286/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 480,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/baqarah286/640/480",
+          "alt": "Background",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 30,
+          "text": "QS. AL-BAQARAH : 286",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 76,
+          "text": "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+          "fontFamily": "Georgia",
+          "fontSize": 30,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 176,
+          "text": "\"Allah tidak membebani seseorang\nmelainkan sesuai\ndengan kesanggupannya.\"",
+          "fontFamily": "Georgia",
+          "fontSize": 22,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 432,
+          "text": "Surat Al-Baqarah (2) ayat 286",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
+    },
+    {
+      "id": "quran-azzumar-53",
+      "name": "Az-Zumar 53",
+      "description": "Jangan berputus asa dari rahmat Allah",
+      "thumbnail": "https://picsum.photos/seed/azzumar53/220/140",
+      "canvasWidth": 640,
+      "canvasHeight": 500,
+      "items": [
+        {
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "src": "https://picsum.photos/seed/azzumar53/640/500",
+          "alt": "Background",
+          "width": 640,
+          "height": 500
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 30,
+          "text": "QS. AZ-ZUMAR : 53",
+          "fontFamily": "Segoe UI",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 72,
+          "text": "لَا تَقْنَطُوا مِنْ رَحْمَةِ اللَّهِ",
+          "fontFamily": "Georgia",
+          "fontSize": 30,
+          "align": "center",
+          "color": "#ffffff",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 168,
+          "text": "\"Janganlah kamu berputus asa\ndari rahmat Allah.\nSesungguhnya Allah mengampuni\nsemua dosa.\"",
+          "fontFamily": "Georgia",
+          "fontSize": 19,
+          "align": "center",
+          "color": "#f0ece0",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        },
+        {
+          "type": "text",
+          "x": 40,
+          "y": 448,
+          "text": "Surat Az-Zumar (39) ayat 53",
+          "fontFamily": "Segoe UI",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#c9a227",
+          "strokeWidth": 0,
+          "strokeColor": "#000000"
+        }
+      ]
     }
   ]
 }
