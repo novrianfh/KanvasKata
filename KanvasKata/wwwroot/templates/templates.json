@@ -549,12 +549,12 @@
       "description": "Allah tidak membebani di luar kemampuan",
       "thumbnail": "https://picsum.photos/seed/baqarah286/220/140",
       "canvasWidth": 640,
-      "canvasHeight": 480,
+      "canvasHeight": 640,
       "items": [
         {
           "type": "image",
           "x": 0,
-          "y": 0,
+          "y": 256,
           "src": "https://picsum.photos/seed/baqarah286/640/480",
           "alt": "Background",
           "width": 640,
@@ -568,7 +568,7 @@
           "fontFamily": "Segoe UI",
           "fontSize": 11,
           "align": "center",
-          "color": "#c9a227",
+          "color": "#D90429",
           "strokeWidth": 0,
           "strokeColor": "#000000"
         },
@@ -580,31 +580,19 @@
           "fontFamily": "Georgia",
           "fontSize": 30,
           "align": "center",
-          "color": "#ffffff",
+          "color": "#2B2D42",
           "strokeWidth": 0,
           "strokeColor": "#000000"
         },
         {
           "type": "text",
           "x": 40,
-          "y": 176,
+          "y": 156,
           "text": "\"Allah tidak membebani seseorang\nmelainkan sesuai\ndengan kesanggupannya.\"",
           "fontFamily": "Georgia",
           "fontSize": 22,
           "align": "center",
-          "color": "#f0ece0",
-          "strokeWidth": 0,
-          "strokeColor": "#000000"
-        },
-        {
-          "type": "text",
-          "x": 40,
-          "y": 432,
-          "text": "Surat Al-Baqarah (2) ayat 286",
-          "fontFamily": "Segoe UI",
-          "fontSize": 13,
-          "align": "center",
-          "color": "#c9a227",
+          "color": "#8D99AE",
           "strokeWidth": 0,
           "strokeColor": "#000000"
         }

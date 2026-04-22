@@ -34,17 +34,7 @@
             <div class="toolbar-divider"></div>
 
             <div class="toolbar-export-group">
-                <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(1)" disabled="@_exporting">
-                    @if (_exporting && _exportScale == 1)
-                    {
-                        <span>Exporting…</span>
-                    }
-                    else
-                    {
-                        <span>⬇ Export 1×</span>
-                    }
-                </button>
-                <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
+<button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
                     @if (_exporting && _exportScale == 2)
                     {
                         <span>Exporting…</span>
