@@ -1,0 +1,64 @@
+<button class="about-fab" @onclick="() => _show = true" title="Tentang KanvasKata">?</button>
+
+@if (_show)
+{
+    <div class="modal-overlay" @onclick="() => _show = false">
+        <div class="modal-card" @onclick:stopPropagation>
+            <div class="modal-header">
+                <span class="modal-title">Tentang Aplikasi</span>
+                <button class="modal-close" @onclick="() => _show = false">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="about-hero">
+                    <div class="about-icon">
+                        <img src="../assets/KanvasKataIcon.png" width="64" height="64" />
+                    </div>
+                    <div>
+                        <div class="about-app-name">KanvasKata</div>
+                        <div class="about-app-tagline">Editor kanvas berbasis web</div>
+                        <span class="about-version">v1.0.0</span>
+                    </div>
+                </div>
+
+                <p class="about-desc">
+                    KanvasKata adalah editor desain ringan yang memungkinkan kamu membuat
+                    konten visual dengan mudah — dari poster, kartu ucapan, hingga thumbnail —
+                    langsung di browser tanpa instalasi.
+                </p>
+
+                <div>
+                    <div class="about-section-label">Fitur Utama</div>
+                    <ul class="about-feature-list">
+                        <li>Tambah & edit teks dengan pilihan font, ukuran, warna, dan format</li>
+                        <li>Masukkan gambar dari URL dengan resize dan crop interaktif</li>
+                        <li>Atur urutan layer elemen di kanvas</li>
+                        <li>Template bawaan siap pakai sebagai titik awal desain</li>
+                        <li>Export hasil kanvas ke gambar PNG resolusi tinggi (2×)</li>
+                        <li>Simpan proyek ke file <code>.kanvasKata</code> dan buka kembali kapan saja</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="about-section-label">Dibangun dengan</div>
+                    <div class="about-tech-row">
+                        <span class="about-tech-tag">.NET 10</span>
+                        <span class="about-tech-tag">Blazor WebAssembly</span>
+                        <span class="about-tech-tag">html2canvas</span>
+                        <span class="about-tech-tag">Vertical Slice Architecture</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="about-section-label">Dibangun oleh</div>
+                    <p class="about-desc">Novrian Fajar <a href="https://instagram.com/nvrnfjr" target="_blank" >@@nvrnfjr</a></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-footer-btn" @onclick="() => _show = false">Tutup</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool _show;
+}

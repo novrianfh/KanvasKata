@@ -775,6 +775,232 @@ h1:focus {
     border: 1px solid #e2e2e2;
 }
 
+/* ── About Button & Modal ── */
+
+.about-fab {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #6366f1;
+    border: none;
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+    z-index: 1100;
+    transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.about-fab:hover {
+    background: #4f46e5;
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.55);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: overlay-in 0.18s ease;
+}
+
+@keyframes overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 460px;
+    margin: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+    animation: modal-in 0.2s cubic-bezier(0.34, 1.3, 0.64, 1);
+    overflow: hidden;
+}
+
+@keyframes modal-in {
+    from { opacity: 0; transform: scale(0.93) translateY(8px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid #f0f0ed;
+}
+
+.modal-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.modal-close {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    border: none;
+    background: #f3f4f6;
+    color: #555;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s, color 0.12s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.about-hero {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.about-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.625rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.about-app-name {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+}
+
+.about-app-tagline {
+    font-size: 0.8125rem;
+    color: #888;
+    margin-top: 0.125rem;
+}
+
+.about-version {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #6366f1;
+    background: #eef2ff;
+    padding: 0.125rem 0.5rem;
+    border-radius: 20px;
+    margin-top: 0.25rem;
+    letter-spacing: 0.03em;
+}
+
+.about-desc {
+    font-size: 0.875rem;
+    color: #444;
+    line-height: 1.65;
+}
+
+.about-section-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+}
+
+.about-feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.about-feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #374151;
+}
+
+.about-feature-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+    flex-shrink: 0;
+}
+
+.about-tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+}
+
+.about-tech-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #555;
+    background: #f3f4f6;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #f0f0ed;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-footer-btn {
+    padding: 0.45rem 1.25rem;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.modal-footer-btn:hover {
+    background: #4f46e5;
+}
+
 /* ── Blazor Error UI ── */
 
 #blazor-error-ui {
