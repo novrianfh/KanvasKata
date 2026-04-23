@@ -73,6 +73,20 @@ public class CanvasStateService
 
     public int IndexOf(CanvasItem item) => _items.IndexOf(item);
 
+    public CanvasDocument ToDocument() => new()
+    {
+        Title = CanvasTitle,
+        Width = CanvasWidth,
+        Height = CanvasHeight,
+        Items = [.._items]
+    };
+
+    public void LoadDocument(CanvasDocument doc)
+    {
+        CanvasTitle = doc.Title;
+        LoadItems(doc.Width, doc.Height, doc.Items);
+    }
+
     public void LoadItems(int canvasWidth, int canvasHeight, IEnumerable<CanvasItem> items)
     {
         _items.Clear();

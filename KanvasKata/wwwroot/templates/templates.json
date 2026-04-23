@@ -248,6 +248,55 @@
       ]
     },
     {
+      "title": "kanvasKata",
+      "name": "Kita adalah doa",
+      "description": "Kita adalah doa dalam diam",
+      "thumbnail": "https://images.pexels.com/photos/33795954/pexels-photo-33795954.jpeg",
+      "width": 640,
+      "height": 480,
+      "items": [
+        {
+          "type": "text",
+          "text": "Kita adalah doa \nyang pernah terlantun lirih\nDalam diam \nkita pernah saling mengamini\nLalu,\nwaktu berjalan \ntanpa kompromi...",
+          "fontFamily": "Georgia",
+          "fontSize": 24,
+          "align": "left",
+          "color": "#7a7a7a",
+          "strokeWidth": 0,
+          "strokeColor": "#000000",
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "id": "ee9526ad-f750-4264-b3e1-18db0fa45de2",
+          "x": 28,
+          "y": 216
+        },
+        {
+          "type": "image",
+          "src": "https://images.pexels.com/photos/33795954/pexels-photo-33795954.jpeg",
+          "alt": "",
+          "width": 398,
+          "height": 530,
+          "cropLeft": 53,
+          "cropTop": 0,
+          "cropRight": 0,
+          "cropBottom": 0,
+          "id": "5f6fc3fe-856a-493e-85a3-937d4d33d59f",
+          "x": 357,
+          "y": -19
+        },
+        {
+          "type": "image",
+          "x": 600,
+          "y": 8,
+          "src": "assets/KanvasKataIcon.png",
+          "alt": "KanvasKata",
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
       "id": "samudra-jiwa",
       "name": "Samudra Jiwa",
       "description": "Ketenangan di tengah badai",

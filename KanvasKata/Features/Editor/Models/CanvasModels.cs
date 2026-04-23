@@ -1,8 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace KanvasKata.Features.Editor.Models;
 
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(TextItem), "text")]
+[JsonDerivedType(typeof(ImageItem), "image")]
 public abstract class CanvasItem
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public float X { get; set; } = 20;
     public float Y { get; set; } = 20;
 }
@@ -31,4 +36,12 @@ public class ImageItem : CanvasItem
     public int CropTop { get; set; } = 0;
     public int CropRight { get; set; } = 0;
     public int CropBottom { get; set; } = 0;
+}
+
+public class CanvasDocument
+{
+    public string Title { get; set; } = string.Empty;
+    public int Width { get; set; }
+    public int Height { get; set; }
+    public List<CanvasItem> Items { get; set; } = [];
 }

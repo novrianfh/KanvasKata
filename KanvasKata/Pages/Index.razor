@@ -1,6 +1,8 @@
 @page "/"
 @using KanvasKata.Features.Editor.Models
 @using KanvasKata.Features.Editor.Services
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Text.Json
 @inject CanvasStateService State
 @inject IJSRuntime JS
 @implements IDisposable
@@ -29,7 +31,13 @@
 
             <div class="toolbar-divider"></div>
 
-           
+            <button class="toolbar-btn" @onclick="SaveKanvas">⬇ Simpan</button>
+            <button class="toolbar-btn" @onclick="TriggerLoadFile">⬆ Buka</button>
+            <InputFile id="kanvas-file-input" accept=".kanvasKata" OnChange="LoadKanvas" style="display: none;" />
+
+            <div class="toolbar-divider"></div>
+
+
             <button class="toolbar-btn toolbar-btn-export" @onclick="() => ExportPng(2)" disabled="@_exporting">
                 @if (_exporting && _exportScale == 2)
                 {
@@ -222,6 +230,40 @@
         <button class="layer-btn" title="Mundur satu layer" @onclick="() => State.SendBackward(item)">↓</button>
         <button class="layer-btn" title="Ke belakang" @onclick="() => State.SendToBack(item)">⬇</button>
     };
+
+    // ── Save / Load ──
+
+    private async Task SaveKanvas()
+    {
+        var doc = State.ToDocument();
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        var json = JsonSerializer.Serialize(doc, options);
+        var filename = $"{State.CanvasTitle}.kanvasKata";
+        await JS.InvokeVoidAsync("kanvasSave.downloadJson", json, filename);
+    }
+
+    private async Task TriggerLoadFile() =>
+        await JS.InvokeVoidAsync("kanvasSave.triggerFilePicker", "kanvas-file-input");
+
+    private async Task LoadKanvas(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            using var stream = file.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024);
+            using var reader = new System.IO.StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var doc = JsonSerializer.Deserialize<CanvasDocument>(json, options);
+            if (doc is not null)
+                State.LoadDocument(doc);
+        }
+        catch { }
+    }
 
     // ── Export ──
 

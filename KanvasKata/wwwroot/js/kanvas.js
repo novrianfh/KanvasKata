@@ -5,6 +5,23 @@ window.kanvasUtils = {
     }
 };
 
+window.kanvasSave = {
+    downloadJson(content, filename) {
+        const blob = new Blob([content], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    },
+    triggerFilePicker(inputId) {
+        document.getElementById(inputId)?.click();
+    }
+};
+
 window.kanvasExport = {
     async exportPng(selector, filename, scale) {
         const el = document.querySelector(selector);
